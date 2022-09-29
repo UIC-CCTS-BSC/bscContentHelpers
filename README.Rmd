@@ -165,11 +165,15 @@ All arguments passed to the knit function have defaults, but some can be updated
 * `dated_file: FALSE`. Append the date to the end of the file name?
 * `file_date: Sys.Date()`. Date to be appended to the end of the file name, if applciable. Defaults to today's date but can be explicitly overridden. To avoid errors, pass as a date object.
 
+
+
 ## Other Helpful Tips
 
 By default, documents refer to an external bibliography, held in `references.bib`. Add references in Bibtex format. Reference them as [@source].
 
 ## Enhancing This Package
+
+The sections below explain how to structure new templates, formats, and more. The instructions don't go into detail about principles of package development or version control, but please keep these things in mind! It's a good idea to make changes on a development branch and test them before committing them to the master branch (i.e., the source of the distributed package). For more about package development, see the [R Packages book](https://r-pkgs.org/Introduction.html). For more about GitHub and version control, see the [GitHub docs](https://docs.github.com).
 
 ### Create a New Template (or Source Document)
 

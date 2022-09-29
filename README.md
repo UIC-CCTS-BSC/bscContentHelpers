@@ -244,6 +244,16 @@ By default, documents refer to an external bibliography, held in
 
 ## Enhancing This Package
 
+The sections below explain how to structure new templates, formats, and
+more. The instructions don’t go into detail about principles of package
+development or version control, but please keep these things in mind!
+It’s a good idea to make changes on a development branch and test them
+before committing them to the master branch (i.e., the source of the
+distributed package). For more about package development, see the [R
+Packages book](https://r-pkgs.org/Introduction.html). For more about
+GitHub and version control, see the [GitHub
+docs](https://docs.github.com).
+
 ### Create a New Template (or Source Document)
 
 TODO: expand to a vignette
