@@ -61,6 +61,21 @@ You can also create a new by manually calling `rmarkdown::draft()`:
 rmarkdown::draft("my_file_name.Rmd", template = "article", package = "bscContentHelpers")
 ```
 
+Currently available templates and documents in this package:
+
+```{r, eval = TRUE, echo = FALSE, results = 'asis'}
+
+# get a list of current templates...
+templates <- paste(
+	"*", 
+	rmarkdown::available_templates(package = "bscContentHelpers", full_path = FALSE)
+	)
+
+# and display
+cat(templates, sep = "\n")
+
+```
+
 ### Edit
 
 Do a little editing, making use of [markdown syntax](https://www.markdownguide.org/basic-syntax/) and [R code chunks](https://rmarkdown.rstudio.com/lesson-3.html).
@@ -85,24 +100,17 @@ The internet is full of great explanations of what R Markdown is, how to use it,
 
 ## A Note About "Templates"
 
-This package contains several document templates--that is, boilerplate outlines for tipsheets, generic articles, slide presentations, and more. These are in a subfolder called `templates` and can be opened with the `rmarkdown::draft()` function. 
+This package contains several document templates--that is, boilerplate outlines for tipsheets, generic articles, slide presentations, and more. These are in a subfolder called `templates` and can be accessed with the `rmarkdown::draft()` function. 
 
-Perhaps confusingly, this package *also* contains several full-fledged pieces of frequently used content, also stored in `templates`. For example, a R Markdown version of the REDCap Terms of Use document can be summoned by calling `rmarkdown::draft("redcap-terms-of-use", template = "redcap-terms-of-use", package = "bscContentHelpers")`. To create fresh pdf version of the Terms of Use in a specific format, open the file (by running the line of code in the last sentence), update the YAML header to refer to the format, and knit. You can edit the version you generate in this way, but remember that any edits will be downstream of the source file stored in the package (again, as a "template", though that designation is slightly misleading in this use case). If you want to edit the source--for example, to correct a spelling error or to add a new policy--you will need to edit the template by editing the `bscContentHelpers` package itself. Any package users will get the change when they update their copy of the package (via `devtools::update_packages()` or similar).
+Perhaps confusingly, this package *also* contains several full-fledged pieces of frequently used content, also stored in `templates`. For example, an R Markdown version of the REDCap Terms of Use document can also be summoned by calling `rmarkdown::draft()`. For example, to create fresh pdf version of the Terms of Use in a specific format, generate a copy of the file:
 
-Currently available templates and documents in this package:
-
-```{r, eval = TRUE, echo = FALSE, results = 'asis'}
-
-# get a list of current templates...
-templates <- paste(
-	"*", 
-	rmarkdown::available_templates(package = "bscContentHelpers", full_path = FALSE)
-	)
-
-# and display
-cat(templates, sep = "\n")
-
+```{r, eval = FALSE}
+rmarkdown::draft("my-terms-copy", template = "redcap-terms-of-use", package = "bscContentHelpers")
 ```
+
+Then update the YAML header to refer to the format and knit. 
+
+This process makes sure that any copies of the document are based on one standardized, agreed-upon source, maintained within the `bscContentHelpers` package. You can edit the copy you generate in this way, but remember that any edits will be downstream of the source file stored in this package. If you want to edit the source (and any future copies based on the source)--for example, to correct a spelling error or to add a new section--you will need to edit the template by editing the `bscContentHelpers` package itself. The change will be distributed to any package users when they visit the GitHub repository or update their local copy of the package via `devtools::update_packages()` or similar.
 
 
 ## Under the Hood
