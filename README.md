@@ -26,6 +26,10 @@ You can install the development version of `bscContentHelpers` from
 devtools::install_github("rmlane/bscContentHelpers")
 ```
 
+Note that this package isn’t on CRAN, so updates won’t be picked up by
+running `update.packages()`. However, once it’s installed, you should be
+able to run `devtools::update_packages()`.
+
 The current package relies on several underlying packages and software
 products (pandoc, `rmarkdown`, `bookdown`, a LaTeX engine). These should
 be automatically installed with RStudio and `bscContentHelpers`. If you
@@ -97,7 +101,10 @@ editing the `bscContentHelpers` package itself. Any package users will
 get the change when they update their copy of the package (via
 `devtools::update_packages()` or similar).
 
--   TODO: more about updating the package and templates.
+-   TODO: more about updating the package and templates. Simple guides:
+    -   <https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/>
+-   TODO: a list of available templates and documents (or a function to
+    view a list–is this in base `rmarkdown`?)
 
 ## Under the Hood
 

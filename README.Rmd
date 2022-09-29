@@ -34,6 +34,8 @@ You can install the development version of `bscContentHelpers` from [Github](htt
 devtools::install_github("rmlane/bscContentHelpers")
 ```
 
+Note that this package isn't on CRAN, so updates won't be picked up by running `update.packages()`. However, once it's installed, you should be able to run `devtools::update_packages()`.
+
 The current package relies on several underlying packages and software products (pandoc, `rmarkdown`, `bookdown`, a LaTeX engine). These should be automatically installed with RStudio and `bscContentHelpers`. If you run into trouble, you can install manually:
 
 ```{r}
@@ -75,7 +77,9 @@ This package contains several document templates--that is, boilerplate outlines 
 
 Perhaps confusingly, this package *also* contains several full-fledged pieces onf frequently used content, also stored in `templates`. For example, a RMarkdown version of the REDCap Terms of Use document can be summoned by calling `rmarkdown::draft("redcap-terms-of-use", template = "redcap-terms-of-use", package = "bscContentHelpers")`. To create fresh pdf version of the Terms of Use in a specific format, open the file (by running the line of code in the last sentence), update the YAML header to refer to the format, and knit. You can edit the version you generate in this way, but remember that any edits will be downstream of the source file stored in the package (again, as a "template", though that designation is slightly misleading in this use case). If you want to edit the source--for example, to correct a spelling error or to add a new policy--you will need to edit the template by editing the `bscContentHelpers` package itself. Any package users will get the change when they update their copy of the package (via `devtools::update_packages()` or similar).
 
-* TODO: more about updating the package and templates.
+* TODO: more about updating the package and templates. Simple guides:
+	* https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/
+* TODO: a list of available templates and documents (or a function to view a list--is this in base `rmarkdown`?)
 
 ## Under the Hood
 
