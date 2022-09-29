@@ -1,4 +1,35 @@
 
+-   <a href="#bsccontenthelpers"
+    id="toc-bsccontenthelpers">bscContentHelpers</a>
+    -   <a href="#quick-start" id="toc-quick-start">Quick Start</a>
+        -   <a href="#install-software-and-r-packages"
+            id="toc-install-software-and-r-packages">Install Software and R
+            Packages</a>
+        -   <a href="#create-a-draft" id="toc-create-a-draft">Create a Draft</a>
+        -   <a href="#edit" id="toc-edit">Edit</a>
+        -   <a href="#knit" id="toc-knit">Knit</a>
+        -   <a href="#for-more-detail" id="toc-for-more-detail">For More Detail…</a>
+    -   <a href="#a-note-about-templates" id="toc-a-note-about-templates">A Note
+        About “Templates”</a>
+    -   <a href="#under-the-hood" id="toc-under-the-hood">Under the Hood</a>
+        -   <a href="#a-rmd-template" id="toc-a-rmd-template">A .Rmd Template</a>
+        -   <a href="#an-output-format" id="toc-an-output-format">An Output
+            Format</a>
+        -   <a href="#knit-function" id="toc-knit-function">A Knit Function</a>
+    -   <a href="#other-helpful-tips" id="toc-other-helpful-tips">Other Helpful
+        Tips</a>
+    -   <a href="#enhancing-this-package"
+        id="toc-enhancing-this-package">Enhancing This Package</a>
+        -   <a href="#create-a-new-template-or-source-document"
+            id="toc-create-a-new-template-or-source-document">Create a New Template
+            (or Source Document)</a>
+        -   <a href="#create-a-new-output-format"
+            id="toc-create-a-new-output-format">Create a New Output Format</a>
+        -   <a href="#create-a-new-reference-doc"
+            id="toc-create-a-new-reference-doc">Create a New Reference Doc</a>
+        -   <a href="#create-a-new-knit-function"
+            id="toc-create-a-new-knit-function">Create a New Knit Function</a>
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # bscContentHelpers
@@ -25,6 +56,10 @@ You can install the development version of `bscContentHelpers` from
 ``` r
 devtools::install_github("rmlane/bscContentHelpers")
 ```
+
+Note that this package isn’t on CRAN, so updates won’t be picked up by
+running `update.packages()`. However, once it’s installed, you should be
+able to run `devtools::update_packages()`.
 
 The current package relies on several underlying packages and software
 products (pandoc, `rmarkdown`, `bookdown`, a LaTeX engine). These should
@@ -56,6 +91,11 @@ You can also create a new by manually calling `rmarkdown::draft()`:
 rmarkdown::draft("my_file_name.Rmd", template = "article", package = "bscContentHelpers")
 ```
 
+Currently available templates and documents in this package:
+
+-   article
+-   slides
+
 ### Edit
 
 Do a little editing, making use of [markdown
@@ -71,7 +111,49 @@ RStudio’s `Knit` button or using the `Ctrl + Shift + K` keyboard
 shortcut. The document is ready for previewing or sharing.
 
 There are many other output file types (.docx, .pptx, .pdf) and formats
-possible. \[See below\] for details
+possible. \[See below\] for details.
+
+### For More Detail…
+
+The internet is full of great explanations of what R Markdown is, how to
+use it, and how to extend it. Some references:
+
+-   [R Markdown: The Definitive
+    Guide](https://bookdown.org/yihui/rmarkdown/)
+-   [R Markwod Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+-   [The Epidemiologist R
+    Handbook](https://epirhandbook.com/en/reports-with-r-markdown.html)
+
+## A Note About “Templates”
+
+This package contains several document templates–that is, boilerplate
+outlines for tipsheets, generic articles, slide presentations, and more.
+These are in a subfolder called `templates` and can be accessed with the
+`rmarkdown::draft()` function.
+
+Perhaps confusingly, this package *also* contains several full-fledged
+pieces of frequently used content, also stored in `templates`. For
+example, an R Markdown version of the REDCap Terms of Use document can
+also be summoned by calling `rmarkdown::draft()`. For example, to create
+fresh pdf version of the Terms of Use in a specific format, generate a
+copy of the file:
+
+``` r
+rmarkdown::draft("my-terms-copy", template = "redcap-terms-of-use", package = "bscContentHelpers")
+```
+
+Then update the YAML header to refer to the format and knit.
+
+This process makes sure that any copies of the document are based on one
+standardized, agreed-upon source, maintained within the
+`bscContentHelpers` package. You can edit the copy you generate in this
+way, but remember that any edits will be downstream of the source file
+stored in this package. If you want to edit the source (and any future
+copies based on the source)–for example, to correct a spelling error or
+to add a new section–you will need to edit the template by editing the
+`bscContentHelpers` package itself. The change will be distributed to
+any package users when they visit the GitHub repository or update their
+local copy of the package via `devtools::update_packages()` or similar.
 
 ## Under the Hood
 
@@ -91,7 +173,7 @@ text. Templates defined in this package include:
 Create a document using each of these template types and study the YAML
 header blocks, surrounded by three ticks (`---`). These settings
 determine document metadata (title, date, author) and output options
-(output\_file, output\_dir).
+(output_file, output_dir).
 
 ### An Output Format
 
@@ -122,8 +204,8 @@ dozens of other packages out there.
 
 TODO:
 
--   pdf\_document
--   html\_webpage (or md\_webpage) – for static site
+-   pdf_document
+-   html_webpage (or md_webpage) – for static site
     -   [ ] consider whether this needs a separate knit function
 
 ### A Knit Function
@@ -162,6 +244,135 @@ By default, documents refer to an external bibliography, held in
 
 ## Enhancing This Package
 
+The sections below explain how to structure new templates, formats, and
+more. The instructions don’t go into detail about principles of package
+development or version control, but please keep these things in mind!
+It’s a good idea to make changes on a development branch and test them
+before committing them to the master branch (i.e., the source of the
+distributed package). For more about package development, see the [R
+Packages book](https://r-pkgs.org/Introduction.html). For more about
+GitHub and version control, see the [GitHub
+docs](https://docs.github.com).
+
+### Create a New Template (or Source Document)
+
+TODO: expand to a vignette
+
+*See the note above about templates (e.g., “article”) and source
+documents (e.g., REDCap Terms of Use). Though these categories of Rmd
+files are conceptually different, they’re created, stored, accessed, and
+edited in the same way.*
+
+To start, generate a new Rmd template and supporting structures by
+calling `use_rmarkdown_template()`, part of the `usethis` package. A
+template should describe a type of document; for example, you might
+create a template for an article or for a slide presentation.
+
+``` r
+usethis::use_rmarkdown_template("Article")
+```
+
+You’ll see some messages in the console:
+
+    ✔ Setting active project to '~/bscContentHelpers'
+    ✔ Creating 'inst/rmarkdown/templates/article/skeleton/'
+    ✔ Writing 'inst/rmarkdown/templates/article/template.yaml'
+    ✔ Writing 'inst/rmarkdown/templates/article/skeleton/skeleton.Rmd'
+
+Navigate to the newly created folder, located under
+`inst/rmarkdown/templates/article`. It should be structured as:
+
+    inst/rmarkdown/templates/article
+    |  template.yaml
+    |--skeleton/
+    |  |  skeleton.Rmd
+
+The file `template.yaml` contains the template name and a few
+configurations. Edit the description, but otherwise this file can be
+left alone.
+
+To edit the .Rmd template file (which will be the shell of any documents
+based on this template), open `skeleton/skeleton.Rmd`. This is where you
+should put any boilerplate text or section titles that will be available
+each time a new document is created based on the template.
+
+The header block, surrounded by three ticks (`---`), includes parameters
+that will be used when rendering the document to its final form. Some,
+like title and date, are placeholders and may be edited every time a new
+document is created. Others, like the output format and knit function,
+can be standardized in this document so they will be the same every time
+a document of this type is created. For more about formats and knit
+functions, see below. Some suggested settings:
+
+``` r
+author: "UIC CCTS Biostatistics Core"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  bscContentHelpers::html_draft: default
+  bscContentHelpers::word_document:
+    toc: FALSE
+    theme: "teal"
+knit: bscContentHelpers::bsc_knit
+```
+
+Put supporting documents (e.g., image files or document-specific
+stylesheets that should be copied every time the template is used) in
+the `/skeleton` subfolder. (Note that you don’t need to include files
+that are part of the output format. Those should be in `inst/rmd_files`
+and referred to in R scripts by
+`system.file("rmd_files/filename.ext", package = "bscContentHelpers")`.)
+
+See the excellent [R Markdown
+book](https://bookdown.org/yihui/rmarkdown/document-templates.html) for
+more detail on document templates.
+
+-   TODO: more about updating the package and templates. Simple guides:
+    -   <https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/>
+    -   <https://cran.r-project.org/web/packages/indiedown/vignettes/walkthrough.html>
+
+### Create a New Output Format
+
+An Rmd template defines the content and structure of a document. Once
+the content has been developed, one or more formats can be applied.
+Formats define the type of file (e.g., .docx or .pptx) and the look and
+feel (e.g., colors, fonts, headers) of the final product.
+
+Note that multiple different formats can be applied to the same
+template. For example, you might have an .Rmd report that can be knit as
+an html draft during content development. The final version could be
+knit to a pdf with custom headers, fonts, and colors.
+
+A Rmd output “format” is actually a piece of R code that defines output
+behavior and specs. Initiate the new format file by calling:
+
+``` r
+# create a new format; this is where you'll define output type and look & feel 
+usethis::use_r("pptx_presentation")
+```
+
+In the format file, create a function that defines the format. In most
+cases, this function will base R Markdown format with some custom
+options.
+
+``` r
+uic_pptx <- function() {
+ 
+  # call the base powerpoint_presentation format
+  rmarkdown::powerpoint_presentation(
+    reference_doc = "my_reference.pptx"
+  )
+   
+}
+```
+
+Supporting files to be called by the format function should be put in
+`inst/rmd_files/`. This way, they’ll be installed with the
+`bscContentHelpers` package and will be accessible to any users of your
+format function. See examples in `R/` (e.g., `html_draft()`) or, again,
+the [R Markdown
+documentation](https://bookdown.org/yihui/rmarkdown/new-formats.html)
+for more examples.
+
 ### Create a New Reference Doc
 
 You might want to do this to set up a new set of styles but leave an
@@ -191,8 +402,8 @@ name will become a theme name that can be referenced in the yaml header
 (e.g., reference `teal.docx` with the yaml option `theme: "teal"`).
 
 Note that just changing the formatting of the text in the document,
-without editing the underlying style, will not extend to documents based
-on this template.
+without editing the underlying style, **will not** extend to documents
+based on this template.
 
 #### .pptx
 
@@ -201,71 +412,6 @@ on this template.
 #### .css
 
 *TODO: Add a css stylesheet.*
-
-### Create a New Template
-
-To start, generate a new Rmd template and supporting structures by
-calling `use_rmarkdown_template()`, part of the `usethis` package. A
-template should describe a type of document; for example, you might
-create a template for an article or for a slide presentation.
-
-``` r
-use_rmarkdown_template("Slides")
-```
-
-Navigate to the newly created folder, located under
-`inst/rmarkdown/templates/slides`. The file `template.yaml` contains the
-template name and a few configurations. Edit the description, but
-otherwise this file can be left alone.
-
-To edit the .Rmd template file (which will be the basis of any documents
-based on this template), open `skeleton/skeleton.Rmd`. This is where you
-should put any sample text or headers that will be available each time a
-new document is created.
-
-The header block, surrounded by three ticks (`---`), includes parameters
-that will be used when rendering the document to its final form. Some,
-like title and date, are placeholders and may be edited every time a new
-document is created. Others, like the output format and knit function,
-can be standardized in this document so they will be the same every time
-a document of this type is created. For more about formats and knit
-functions, see below.
-
-### Create a New Output Format
-
-An Rmd template defines the content and structure of a document. Once
-the content has been developed, one or more formats can be applied.
-Formats define the type of file (e.g., .docx or .pptx) and the look and
-feel (e.g., colors, fonts, headers) of the final product.
-
-Note that multiple different formats can be applied to the same
-template. For example, you might have an .Rmd report that can be knit as
-an html draft during content development. The final version could be
-knit to a pdf with custom headers, fonts, and colors.
-
-``` r
-# create a new format; this is where you'll define output type and look & feel 
-use_r("pptx_presentation")
-```
-
-In the format file, create a function that defines the format. In most
-cases, this function will specify options and call a base rmarkdown
-format.
-
-``` r
-uic_pptx <- function() {
- 
-  # call the base powerpoint_presentation format
-  rmarkdown::powerpoint_presentation(
-    reference_doc = "my_reference.pptx"
-  )
-   
-}
-```
-
-Supporting files should be put in `inst/rmd_files/`. See examples in
-`R/` (`html_draft()`) or the excellent [R Markdown
-documentation](https://bookdown.org/yihui/rmarkdown/) for more examples.
 
 ### Create a New Knit Function
 
