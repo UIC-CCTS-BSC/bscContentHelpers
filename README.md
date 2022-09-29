@@ -77,6 +77,17 @@ shortcut. The document is ready for previewing or sharing.
 There are many other output file types (.docx, .pptx, .pdf) and formats
 possible. \[See below\] for details.
 
+### For More Detail…
+
+The internet is full of great explanations of what R Markdown is, how to
+use it, and how to extend it. Some references:
+
+-   [R Markdown: The Definitive
+    Guide](https://bookdown.org/yihui/rmarkdown/)
+-   [R Markwod Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+-   [The Epidemiologist R
+    Handbook](https://epirhandbook.com/en/reports-with-r-markdown.html)
+
 ## A Note About “Templates”
 
 This package contains several document templates–that is, boilerplate
@@ -85,8 +96,8 @@ These are in a subfolder called `templates` and can be opened with the
 `rmarkdown::draft()` function.
 
 Perhaps confusingly, this package *also* contains several full-fledged
-pieces onf frequently used content, also stored in `templates`. For
-example, a RMarkdown version of the REDCap Terms of Use document can be
+pieces of frequently used content, also stored in `templates`. For
+example, a R Markdown version of the REDCap Terms of Use document can be
 summoned by calling
 `rmarkdown::draft("redcap-terms-of-use", template = "redcap-terms-of-use", package = "bscContentHelpers")`.
 To create fresh pdf version of the Terms of Use in a specific format,
@@ -101,10 +112,10 @@ editing the `bscContentHelpers` package itself. Any package users will
 get the change when they update their copy of the package (via
 `devtools::update_packages()` or similar).
 
--   TODO: more about updating the package and templates. Simple guides:
-    -   <https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/>
--   TODO: a list of available templates and documents (or a function to
-    view a list–is this in base `rmarkdown`?)
+Currently available templates and documents in this package:
+
+-   article
+-   slides
 
 ## Under the Hood
 
@@ -236,6 +247,10 @@ See the excellent [R Markdown
 book](https://bookdown.org/yihui/rmarkdown/document-templates.html) for
 more detail on document templates.
 
+-   TODO: more about updating the package and templates. Simple guides:
+    -   <https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/>
+    -   <https://cran.r-project.org/web/packages/indiedown/vignettes/walkthrough.html>
+
 ### Create a New Output Format
 
 An Rmd template defines the content and structure of a document. Once
@@ -257,7 +272,7 @@ usethis::use_r("pptx_presentation")
 ```
 
 In the format file, create a function that defines the format. In most
-cases, this function will base RMarkdown format with some custom
+cases, this function will base R Markdown format with some custom
 options.
 
 ``` r
