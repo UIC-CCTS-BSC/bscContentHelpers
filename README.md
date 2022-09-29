@@ -246,6 +246,8 @@ By default, documents refer to an external bibliography, held in
 
 ### Create a New Template (or Source Document)
 
+TODO: expand to a vignette
+
 *See the note above about templates (e.g., “article”) and source
 documents (e.g., REDCap Terms of Use). Though these categories of Rmd
 files are conceptually different, they’re created, stored, accessed, and
@@ -257,13 +259,27 @@ template should describe a type of document; for example, you might
 create a template for an article or for a slide presentation.
 
 ``` r
-usethis::use_rmarkdown_template("Slides")
+usethis::use_rmarkdown_template("Article")
 ```
 
+You’ll see some messages in the console:
+
+    ✔ Setting active project to '~/bscContentHelpers'
+    ✔ Creating 'inst/rmarkdown/templates/article/skeleton/'
+    ✔ Writing 'inst/rmarkdown/templates/article/template.yaml'
+    ✔ Writing 'inst/rmarkdown/templates/article/skeleton/skeleton.Rmd'
+
 Navigate to the newly created folder, located under
-`inst/rmarkdown/templates/slides`. The file `template.yaml` contains the
-template name and a few configurations. Edit the description, but
-otherwise this file can be left alone.
+`inst/rmarkdown/templates/article`. It should be structured as:
+
+    inst/rmarkdown/templates/article
+    |  template.yaml
+    |--skeleton/
+    |  |  skeleton.Rmd
+
+The file `template.yaml` contains the template name and a few
+configurations. Edit the description, but otherwise this file can be
+left alone.
 
 To edit the .Rmd template file (which will be the shell of any documents
 based on this template), open `skeleton/skeleton.Rmd`. This is where you
@@ -276,10 +292,25 @@ like title and date, are placeholders and may be edited every time a new
 document is created. Others, like the output format and knit function,
 can be standardized in this document so they will be the same every time
 a document of this type is created. For more about formats and knit
-functions, see below.
+functions, see below. Some suggested settings:
+
+``` r
+author: "UIC CCTS Biostatistics Core"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  bscContentHelpers::html_draft: default
+  bscContentHelpers::word_document:
+    toc: FALSE
+    theme: "teal"
+knit: bscContentHelpers::bsc_knit
+```
 
 Put supporting documents (e.g., image files or document-specific
-stylesheets) in the `/skeleton` subfolder.
+stylesheets that should be copied every time the template is used) in
+the `/skeleton` subfolder. (Note that you don’t need to include files
+that are part of the output format. Those should be in `inst/rmd_files`
+and referred to in R scripts by
+`system.file("rmd_files/filename.ext", package = "bscContentHelpers")`.)
 
 See the excellent [R Markdown
 book](https://bookdown.org/yihui/rmarkdown/document-templates.html) for
