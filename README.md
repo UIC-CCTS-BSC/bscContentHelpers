@@ -1,4 +1,35 @@
 
+-   <a href="#bsccontenthelpers"
+    id="toc-bsccontenthelpers">bscContentHelpers</a>
+    -   <a href="#quick-start" id="toc-quick-start">Quick Start</a>
+        -   <a href="#install-software-and-r-packages"
+            id="toc-install-software-and-r-packages">Install Software and R
+            Packages</a>
+        -   <a href="#create-a-draft" id="toc-create-a-draft">Create a Draft</a>
+        -   <a href="#edit" id="toc-edit">Edit</a>
+        -   <a href="#knit" id="toc-knit">Knit</a>
+        -   <a href="#for-more-detail" id="toc-for-more-detail">For More Detail…</a>
+    -   <a href="#a-note-about-templates" id="toc-a-note-about-templates">A Note
+        About “Templates”</a>
+    -   <a href="#under-the-hood" id="toc-under-the-hood">Under the Hood</a>
+        -   <a href="#a-rmd-template" id="toc-a-rmd-template">A .Rmd Template</a>
+        -   <a href="#an-output-format" id="toc-an-output-format">An Output
+            Format</a>
+        -   <a href="#knit-function" id="toc-knit-function">A Knit Function</a>
+    -   <a href="#other-helpful-tips" id="toc-other-helpful-tips">Other Helpful
+        Tips</a>
+    -   <a href="#enhancing-this-package"
+        id="toc-enhancing-this-package">Enhancing This Package</a>
+        -   <a href="#create-a-new-template-or-source-document"
+            id="toc-create-a-new-template-or-source-document">Create a New Template
+            (or Source Document)</a>
+        -   <a href="#create-a-new-output-format"
+            id="toc-create-a-new-output-format">Create a New Output Format</a>
+        -   <a href="#create-a-new-reference-doc"
+            id="toc-create-a-new-reference-doc">Create a New Reference Doc</a>
+        -   <a href="#create-a-new-knit-function"
+            id="toc-create-a-new-knit-function">Create a New Knit Function</a>
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # bscContentHelpers
