@@ -165,7 +165,7 @@ All arguments passed to the knit function have defaults, but some can be updated
 * `dated_file: FALSE`. Append the date to the end of the file name?
 * `file_date: Sys.Date()`. Date to be appended to the end of the file name, if applciable. Defaults to today's date but can be explicitly overridden. To avoid errors, pass as a date object.
 
-
+TODO: knitting for website [html/md (with subfolder code snippet appended) plus pdf] 
 
 ## Other Helpful Tips
 
