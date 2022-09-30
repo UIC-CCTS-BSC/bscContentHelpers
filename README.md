@@ -94,6 +94,7 @@ rmarkdown::draft("my_file_name.Rmd", template = "article", package = "bscContent
 Currently available templates and documents in this package:
 
 -   article
+-   redcap-terms-of-use
 -   slides
 
 ### Edit
@@ -235,6 +236,9 @@ include:
 -   `file_date: Sys.Date()`. Date to be appended to the end of the file
     name, if applciable. Defaults to today’s date but can be explicitly
     overridden. To avoid errors, pass as a date object.
+
+TODO: knitting for website \[html/md (with subfolder code snippet
+appended) plus pdf\]
 
 ## Other Helpful Tips
 

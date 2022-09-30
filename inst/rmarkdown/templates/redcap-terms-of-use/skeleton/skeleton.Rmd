@@ -12,58 +12,30 @@ knit: bscContentHelpers::bsc_knit
 
 # Glossary
 
-REDCap
-
-: A secure, web-based application for building and managing online surveys and databases. REDCap was created by [Vanderbilt University](https://projectredcap.org/) in 2004.
-
-CCTS
-
-: UIC's [Center for Clinical and Translational Science](https://ccts.uic.edu/). CCTS administers the UIC-specific installation of REDCap and provides training and consultation services for UIC health researchers.
-
-IHRP
-
-: UIC's [Institute for Health Research and Policy](https://www.ihrp.uic.edu/). IHRP manages the REDCap server and IT infrastructure at UIC.
-
-REDCap project
-
-: A database created in REDCap with associated data collection forms and settings. Each REDCap project is independent and only accessible by approved users.
-
-Project owner
-
-: The creator or manager of a project in REDCap, usually the project's principal investigator or a delegate. The project owner has access to all design options for a REDCap project. The project owner can grant, adjust, and revoke project permissions for other users.
-
-Full-access user
-
-: A REDCap user who can create or copy projects. 
-
-Access-only user
-
-: A REDCap user who can access one or more projects but cannot create or copy projects.
-
-Sponsor
-
-: A full-access user who has requested the creation of accounts for one or more access-only users. All non-UIC users must have a sponsor affiliated with UIC health research.
-
-DAG
-
-: Data access group. DAGs may be created to control which users can access which records within a REDCap project.
-
-Superuser
-
-: A REDCap user who can create user accounts and access any project at the request of the project owner. All members of the REDCap admin team are superusers.
-
+Term             | Definition
+---              | ---  
+REDCap           | A secure, web-based application for building and managing online surveys and databases. REDCap was created by [Vanderbilt University](https://projectredcap.org/) in 2004.
+CCTS             | UIC's [Center for Clinical and Translational Science](https://ccts.uic.edu/). CCTS administers the UIC-specific installation of REDCap and provides training and consultation services for UIC health researchers.
+IHRP             | UIC's [Institute for Health Research and Policy](https://www.ihrp.uic.edu/). IHRP manages the REDCap server and IT infrastructure at UIC.
+REDCap project   | A database created in REDCap with associated data collection forms and settings. Each REDCap project is independent and only accessible by approved users.
+Project owner    | The creator or manager of a project in REDCap, usually the project's principal investigator or a delegate. The project owner has access to all design options for a REDCap project. The project owner can grant, adjust, and revoke project permissions for other users.
+Full-access user | A REDCap user who can create or copy projects. 
+Limited-access user | A REDCap user who can access one or more projects but cannot create or copy projects.
+Sponsor          | A full-access user who has requested the creation of accounts for one or more limited-access users. All non-UIC users must have a sponsor affiliated with UIC health research.
+DAG              | Data access group. DAGs may be created to control which users can access which records within a REDCap project.
+Superuser        | A REDCap user who can create user accounts and access any project at the request of the project owner. All members of the REDCap admin team are superusers.
 
 
 # User Accounts
 ## New Accounts
-1. Any UIC-affiliated health researcher who needs to create or copy REDCap projects can request a full-access user account. To request an account, the user must submit a formal service request through the [CCTS workflow system](https://webapps.ccts.uic.edu/CCTS_Service_Requests/).
-1. Any individual working on a UIC REDCap project can obtain an access-only user account, provided he or she is sponsored by a full-access user. Either the access-only user or the sponsor can request the account by emailing the [REDCap admin team](redcapihrp@uic.edu). Requests must include the access-only user's name and email address and the sponsor's name and email address or REDCap username.
+1. Any UIC-affiliated health researcher who needs to create or copy REDCap projects can request a full-access user account. To request an account, the user must submit a service request through the [UIC REDCap Support Form](https://redcap.link/uic-redcap-support) and agree to the REDCap Terms of Use.
+1. Any individual working on a UIC REDCap project can obtain a limited-access user account, provided he or she is sponsored by a full-access user. Either the limited-access user or the sponsor can request the account by submitting a request through the [UIC REDCap Support Form](https://redcap.link/uic-redcap-support). Requests must include the limited-access user's name and email address and the sponsor's UIC email address.
 1. When a new REDCap account is created, the user will receive an automated email with login information. Upon receipt of this email, the user must choose a secure password and set up security questions for future password resets.
-1. Users may request password resets for their own accounts by emailing the [REDCap admin team](redcapihrp@uic.edu). A user may not initiate a password reset on behalf of another user.
+1. A user may request a password reset for his or her own account by submitting a service request through the [UIC REDCap Support Form](https://redcap.link/uic-redcap-support). A sponsor may also initiate a password reset for a sponsored user via the Sponsor Dashboard.
 
 ## User Authentication
 1. REDCap validates the identity of end users by the table-based authentication method, which relies on the storage of username-password pairs in a database table.
-1. Each individual who accesses a REDCap project must have a unique username and password. Users must keep their login credentials private and must not share these credentials with any other person.
+1. Each individual who accesses a REDCap project must have a unique username and password. Users must keep their login credentials private and must not share these credentials with any other person. Group accounts or email addresses (e.g., team@uic.edu) are not permitted.
 1. Five failed login attempts will result in a user being locked out.
 1. After 30 minutes of no activity by a logged-in user, the user will be automatically logged out.
 1. Each user’s password will expire after one year.
@@ -77,9 +49,11 @@ Superuser
 ## Account Expiration, Suspension, and Deletion
 1. When a REDCap user leaves the university, the user or his or her sponsor must email the [REDCap admin team](redcapihrp@uic.edu) to request that the user account be deleted.
 1. Before a project owner leaves the university, it is his or her responsibility to designate a new project owner via the project's User Rights page.
-1. Users with no activity for at least one year will have their accounts suspended. A suspended user can email the [REDCap admin team](redcapihrp@uic.edu) to request account reactivation.
-1. Access-only user accounts have a default expiration date of one year from creation. A user's sponsor can manage expiration dates via the sponsor dashboard.
-1. Users may request deletion of their own accounts from the REDCap system by emailing the [REDCap admin team](redcapihrp@uic.edu). Account deletion may be initiated by a third party, but no account will be deleted unless the account owner confirms the request.
+1. Users with no activity for at least one year will have their accounts automatically suspended. 
+	1. A suspended user can submit a service request through the [UIC REDCap Support Form](https://redcap.link/uic-redcap-support) to request account reactivation.
+	1. A sponsor can request a sponsored limited-access user's account reactivation through the Sponsor Dashboard.
+1. Limited-access user accounts have a default expiration date of one year from creation. A user's sponsor can manage expiration dates via the Sponsor Dashboard.
+1. Users may request deletion of their own accounts from the REDCap system by emailing the [REDCap admin team](redcapihrp@uic.edu). Account deletion may be initiated by a third party, but no account will be deleted unless the account owner confirms the request by email.
 
 # User Responsibilities
 ## General Responsibilities
@@ -117,9 +91,9 @@ REDCap has several options that are compatible with the needs of Institutional R
 # User Support
 ## CCTS Support Services
 1. REDCap administration and user support are provided by staff of the UIC's [Center for Clinical and Translational Science (CCTS)](https://ccts.uic.edu/).
-1. The REDCap admin team creates and maintains user accounts at no charge and provides training courses, general instructions, and troubleshooting to all UIC health researchers and affiliated users by [email](redcapihrp@uic.edu). Users can also request an in-person REDCap consultation meeting through the [CCTS workflow system](https://webapps.ccts.uic.edu/CCTS_Service_Requests/).
-1. Email support is available Monday through Friday, 9 a.m. to 5 p.m. Limited email support may be available during campus holidays and staff absences. Users will be notified a week in advance of periods of planned support downtime.
-1. The REDCap admin team will respond to most emails within two business days. In times of high volume, requests may take longer to complete.
+1. The REDCap admin team creates and maintains user accounts at no charge and provides training courses, general instructions, and limited troubleshooting to all UIC health researchers and affiliated users. To request email support or a one-on-one consultation, users should submit a request through the [REDCap Support Form](https://redcap.link/uic-redcap-support).
+1. Virtual support is available Monday through Friday, 9 a.m. to 5 p.m. Limited support may be available during campus holidays and staff absences. Users will be notified a week in advance of periods of planned support downtime.
+1. The REDCap admin strives to respond to account-related requests with one business day and more complex questions within five business days. In times of high volume, requests may take longer to complete.
 1. As superusers, members of the REDCap admin team can access the settings, forms, and database of any project upon the project owner's request.
 1. The REDCap admin team may gather some general REDCap usage statistics for reports, including number of users, number of projects, and types of projects.
 
@@ -130,7 +104,6 @@ REDCap has several options that are compatible with the needs of Institutional R
 # Security
 ## Infrastructure
 1. [View a technical overview by the developer, Vanderbilt University.](https://projectredcap.org/wp-content/resources/REDCapTechnicalOverview.pdf)
-<!-- 1. Security specs implemented by CCTS REDCap at UIC -->
 1. The REDCap server is housed in a climate-controlled, locked server room at IHRP and maintained by IHRP IT staff.
 1. The REDCap application is split between multiple server systems with a load-balanced, web-accessible front end and the database application stored on a firewalled back-end failover cluster.
 1. REDCap uses SSL to encrypt all traffic between the user and the application.
