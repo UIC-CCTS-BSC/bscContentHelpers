@@ -354,10 +354,22 @@ skeleton.html).
 
 #### Deploy
 
-Do any package checks you want (e.g., run `devtools::check()` in the
-console). When you’re happy, commit and push the changes.
+Do any package checks you want (e.g., run `devtools::check()` or
+`devtools::load_all()`). When you’re happy, commit and push the changes.
 
 #### Merge \[Recommended - If On a Development Branch\]
+
+On GitHub, compare the changes and initiate a pull request from the
+development branch to the main/master branch. Merge. Confirm. Delete the
+development branch.
+
+Locally, switch to the master branch. Sync the changes. Then delete the
+local version of the development branch.
+
+    git checkout main
+    git fetch
+    git pull
+    git branch -d new-working-branch
 
 #### For More…
 
