@@ -181,7 +181,8 @@ TODO: expand to a vignette
 
 *See the note above about templates (e.g., "article") and source documents (e.g., REDCap Terms of Use). Though these categories of Rmd files are conceptually different, they're created, stored, accessed, and edited in the same way.*
 
-Step 0 [Recommended]: Sync the remote repository (i.e., the current version of the files on GitHub) with your local copy. Then create a new development branch.
+#### Step 0 [Optional but Recommended]: Sync and Switch Branches
+Sync the remote repository (i.e., the current version of the files on GitHub) with your local copy. Then create and switch to a new development branch.
 
 ```
 $ git fetch
@@ -189,8 +190,8 @@ $ git pull
 $ git checkout -b new-working-branch
 ```
 
-
-To start, generate a new Rmd template and supporting structures by calling `use_rmarkdown_template()`, part of the `usethis` package. A template should describe a type of document; for example, you might create a template for an article or for a slide presentation.
+#### Create the Template
+Generate a new Rmd template and supporting structures by calling `use_rmarkdown_template()`, part of the `usethis` package. A template should describe a type of document; for example, you might create a template for an article or for a slide presentation.
 
 ```{r, eval = FALSE}
 usethis::use_rmarkdown_template("Article")
@@ -205,6 +206,7 @@ You'll see some messages in the console:
 ✔ Writing 'inst/rmarkdown/templates/article/skeleton/skeleton.Rmd'
 ```
 
+#### Edit
 Navigate to the newly created folder, located under `inst/rmarkdown/templates/article`. It should be structured as:
 
 
@@ -232,7 +234,29 @@ output:
 knit: bscContentHelpers::bsc_knit
 ```
 
-Put supporting documents (e.g., image files or document-specific stylesheets that should be copied every time the template is used) in the `/skeleton` subfolder. (Note that you don't need to include files that are part of the output format. Those should be in `inst/rmd_files` and referred to in R scripts by `system.file("rmd_files/filename.ext", package = "bscContentHelpers")`.)
+Put supporting documents (e.g., image files or document-specific stylesheets that should be copied every time the template is used) in the `/skeleton` subfolder. Import an image:
+
+```
+![Image alt text](image-file-name.png)
+```
+
+Note that you don't need to include files that are part of the output format (like header logos or stylesheets). Those should be in `inst/rmd_files` and referred to in R scripts by `system.file("rmd_files/filename.ext", package = "bscContentHelpers")`.
+
+#### Preview
+
+Knit the file to see what the final version will look like. Use the `knit` button or the `Ctrl+Shift+K` shortcut.
+
+After you preview the file, be sure to delete the output (e.g., skeleton.html).
+
+#### Deploy
+
+Do any package checks you want (e.g., run `devtools::check()` or `devtools::load_all()`). When you're happy, commit and push the changes. 
+
+#### Merge [Recommended - If On a Development Branch]
+
+
+
+#### For More...
 
 See the excellent [R Markdown book](https://bookdown.org/yihui/rmarkdown/document-templates.html) for more detail on document templates.
 
