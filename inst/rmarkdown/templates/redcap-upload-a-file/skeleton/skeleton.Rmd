@@ -1,0 +1,30 @@
+---
+title: "Upload a File"
+author: "UIC CCTS Biostatistics Core"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  bscContentHelpers::html_draft: default
+  # bscContentHelpers::word_document:
+  #   toc: FALSE
+  #   theme: "teal"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+To share a file through a data collection instrument, create a Descriptive Text field.
+
+![Add a new Descriptive Text field.](add-descriptive-text.png)
+
+Give the field a name and a label. Then click "Upload file." 
+
+![Edit field settings.](label-and-upload.png)
+
+Choose a file to upload from your computer's file directory. Click "Upload file." Then save the changes.
+
+![Choose a file to upload.](choose-file.png)
+
+Your file will appear as a download link on your survey or data collection instrument.
+
+![File download link.](download-file-preview.png)

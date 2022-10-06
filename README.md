@@ -20,9 +20,9 @@
         Tips</a>
     -   <a href="#enhancing-this-package"
         id="toc-enhancing-this-package">Enhancing This Package</a>
-        -   <a href="#create-a-new-template-or-source-document"
-            id="toc-create-a-new-template-or-source-document">Create a New Template
-            (or Source Document)</a>
+        -   <a href="#create-a-new-template-or-source-document-in-this-package"
+            id="toc-create-a-new-template-or-source-document-in-this-package">Create
+            a New Template (or Source Document) in This Package</a>
         -   <a href="#create-a-new-output-format"
             id="toc-create-a-new-output-format">Create a New Output Format</a>
         -   <a href="#create-a-new-reference-doc"
@@ -258,7 +258,7 @@ Packages book](https://r-pkgs.org/Introduction.html). For more about
 GitHub and version control, see the [GitHub
 docs](https://docs.github.com).
 
-### Create a New Template (or Source Document)
+### Create a New Template (or Source Document) in This Package
 
 TODO: expand to a vignette
 
@@ -267,10 +267,22 @@ documents (e.g., REDCap Terms of Use). Though these categories of Rmd
 files are conceptually different, they’re created, stored, accessed, and
 edited in the same way.*
 
-To start, generate a new Rmd template and supporting structures by
-calling `use_rmarkdown_template()`, part of the `usethis` package. A
-template should describe a type of document; for example, you might
-create a template for an article or for a slide presentation.
+#### Step 0 \[Optional but Recommended\]: Sync and Switch Branches
+
+Sync the remote repository (i.e., the current version of the files on
+GitHub) with your local copy. Then create and switch to a new
+development branch.
+
+    $ git fetch
+    $ git pull
+    $ git checkout -b new-working-branch
+
+#### Create the Template
+
+Generate a new Rmd template and supporting structures by calling
+`use_rmarkdown_template()`, part of the `usethis` package. A template
+should describe a type of document; for example, you might create a
+template for an article or for a slide presentation.
 
 ``` r
 usethis::use_rmarkdown_template("Article")
@@ -282,6 +294,8 @@ You’ll see some messages in the console:
     ✔ Creating 'inst/rmarkdown/templates/article/skeleton/'
     ✔ Writing 'inst/rmarkdown/templates/article/template.yaml'
     ✔ Writing 'inst/rmarkdown/templates/article/skeleton/skeleton.Rmd'
+
+#### Edit
 
 Navigate to the newly created folder, located under
 `inst/rmarkdown/templates/article`. It should be structured as:
@@ -321,10 +335,31 @@ knit: bscContentHelpers::bsc_knit
 
 Put supporting documents (e.g., image files or document-specific
 stylesheets that should be copied every time the template is used) in
-the `/skeleton` subfolder. (Note that you don’t need to include files
-that are part of the output format. Those should be in `inst/rmd_files`
-and referred to in R scripts by
-`system.file("rmd_files/filename.ext", package = "bscContentHelpers")`.)
+the `/skeleton` subfolder. Import an image:
+
+    ![Image alt text](image-file-name.png)
+
+Note that you don’t need to include files that are part of the output
+format (like header logos or stylesheets). Those should be in
+`inst/rmd_files` and referred to in R scripts by
+`system.file("rmd_files/filename.ext", package = "bscContentHelpers")`.
+
+#### Preview
+
+Knit the file to see what the final version will look like. Use the
+`knit` button or the `Ctrl+Shift+K` shortcut.
+
+After you preview the file, be sure to delete the output (e.g.,
+skeleton.html).
+
+#### Deploy
+
+Do any package checks you want (e.g., run `devtools::check()` in the
+console). When you’re happy, commit and push the changes.
+
+#### Merge \[Recommended - If On a Development Branch\]
+
+#### For More…
 
 See the excellent [R Markdown
 book](https://bookdown.org/yihui/rmarkdown/document-templates.html) for
