@@ -371,6 +371,13 @@ local version of the development branch.
     git pull
     git branch -d new-working-branch
 
+#### Update the Installed Package
+
+If you’ve made changes to the `main` branch of the package, you’ll need
+to fetch them to update your installed version. In the console:
+
+    devtools::update_packages()
+
 #### For More…
 
 See the excellent [R Markdown
