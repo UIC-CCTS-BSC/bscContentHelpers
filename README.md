@@ -9,20 +9,19 @@
         -   <a href="#edit" id="toc-edit">Edit</a>
         -   <a href="#knit" id="toc-knit">Knit</a>
         -   <a href="#for-more-detail" id="toc-for-more-detail">For More Detail…</a>
-    -   <a href="#a-note-about-templates" id="toc-a-note-about-templates">A Note
-        About “Templates”</a>
     -   <a href="#under-the-hood" id="toc-under-the-hood">Under the Hood</a>
-        -   <a href="#a-rmd-template" id="toc-a-rmd-template">A .Rmd Template</a>
+        -   <a href="#an-r-markdown-template" id="toc-an-r-markdown-template">An R
+            Markdown Template</a>
         -   <a href="#an-output-format" id="toc-an-output-format">An Output
             Format</a>
-        -   <a href="#knit-function" id="toc-knit-function">A Knit Function</a>
+        -   <a href="#a-knit-function" id="toc-a-knit-function">A Knit Function</a>
     -   <a href="#other-helpful-tips" id="toc-other-helpful-tips">Other Helpful
         Tips</a>
     -   <a href="#enhancing-this-package"
         id="toc-enhancing-this-package">Enhancing This Package</a>
-        -   <a href="#create-a-new-template-or-source-document-in-this-package"
-            id="toc-create-a-new-template-or-source-document-in-this-package">Create
-            a New Template (or Source Document) in This Package</a>
+        -   <a href="#create-a-new-template-in-this-package"
+            id="toc-create-a-new-template-in-this-package">Create a New Template in
+            This Package</a>
         -   <a href="#create-a-new-output-format"
             id="toc-create-a-new-output-format">Create a New Output Format</a>
         -   <a href="#create-a-new-reference-doc"
@@ -52,13 +51,18 @@ an output format.
 The primary workflow described here relies on
 [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/),
 so be sure to install those first. Workarounds to RStudio are possible
-but probably not worth the hassle.
+but probably not worth the hassle. You’ll also want to install the
+`devtools` package:
+
+``` r
+install.packages("devtools")
+```
 
 You can install the development version of `bscContentHelpers` from
 [Github](https://github.com/) with:
 
 ``` r
-devtools::install_github("rmlane/bscContentHelpers")
+devtools::install_github("UIC-CCTS-BSC/bscContentHelpers")
 ```
 
 Note that this package isn’t on CRAN, so updates won’t be picked up by
@@ -81,6 +85,16 @@ tinytex::install_tinytex()
 
 ### Create a Draft
 
+This package contains several document templates–that is, boilerplate
+outlines for tipsheets, generic articles, slide presentations, and more.
+These are in a subfolder called `templates` and can be accessed with the
+`rmarkdown::draft()` function.
+
+Currently available templates in this package:
+
+-   article
+-   slides
+
 To use the RStudio `New File` add-in to create a document draft,
 navigate to `File > New File > R Markdown... > From Template`. Select
 one of the templates from the `bscContentHelpers` package (for example,
@@ -96,18 +110,11 @@ with the template and package name as arguments:
 rmarkdown::draft("my_file_name", template = "article", package = "bscContentHelpers")
 ```
 
-Currently available templates and documents in this package:
-
--   article
--   redcap-terms-of-use
--   redcap-upload-a-file
--   slides
-
 ### Edit
 
-Do a little editing, making use of [markdown
-syntax](https://www.markdownguide.org/basic-syntax/) and [R code
-chunks](https://rmarkdown.rstudio.com/lesson-3.html).
+Do a little editing of the file you just created, making use of
+[markdown syntax](https://rmarkdown.rstudio.com/authoring_basics.html)
+and [R code chunks](https://rmarkdown.rstudio.com/lesson-3.html).
 
 You can also edit fields in the YAML header or leave them as is.
 
@@ -131,71 +138,83 @@ use it, and how to extend it. Some references:
 -   [The Epidemiologist R
     Handbook](https://epirhandbook.com/en/reports-with-r-markdown.html)
 
-## A Note About “Templates”
-
-This package contains several document templates–that is, boilerplate
-outlines for tipsheets, generic articles, slide presentations, and more.
-These are in a subfolder called `templates` and can be accessed with the
-`rmarkdown::draft()` function.
-
-Perhaps confusingly, this package *also* contains several full-fledged
-pieces of frequently used content, also stored in `templates`. For
-example, an R Markdown version of the REDCap Terms of Use document can
-also be summoned by calling `rmarkdown::draft()`. For example, to create
-fresh pdf version of the Terms of Use in a specific format, generate a
-copy of the file:
-
-``` r
-rmarkdown::draft("my-terms-copy", template = "redcap-terms-of-use", package = "bscContentHelpers")
-```
-
-Then update the YAML header to refer to the format and knit.
-
-This process makes sure that any copies of the document are based on one
-standardized, agreed-upon source, maintained within the
-`bscContentHelpers` package. You can edit the copy you generate in this
-way, but remember that any edits will be downstream of the source file
-stored in this package. If you want to edit the source (and any future
-copies based on the source)–for example, to correct a spelling error or
-to add a new section–you will need to edit the template by editing the
-`bscContentHelpers` package itself. The change will be distributed to
-any package users when they visit the GitHub repository or update their
-local copy of the package via `devtools::update_packages()` or similar.
-
 ## Under the Hood
 
 The document development and rendering process relies on three files:
-[an .Rmd template](#rmd-template), [an output format](#output-format),
-and [a knit function](#knit-function).
+[an .Rmd template](#an-r-markdown-template), [an output
+format](#an-output-format), and [a knit function](#a-knit-function).
 
-### A .Rmd Template
+### An R Markdown Template
 
 At its most basic, an .Rmd template is a sample file, written in R
 Markdown, that may include standard headers, sample code, or boilerplate
-text. Templates defined in this package include:
+text. An Rmd template defines the content and structure of a document.
+
+Templates defined in this package include:
 
 -   Article. This could be used for a tipsheet or other short article.
 -   Slides. This is set up to create a Powerpoint document.
 
-Create a document using each of these template types and study the YAML
-header blocks, surrounded by three ticks (`---`). These settings
-determine document metadata (title, date, author) and output options
-(output_file, output_dir).
+Like all R Markdown documents, templates start with a section called a
+YAML header, bordered by three tick marks (`---`). This section defines
+the settings of your final document, including metadata (e.g., title,
+author, date) and output format and behavior (e.g., Word document with a
+certain set of fonts, saved with a specific file name in a specific
+location on your computer. Custom templates in this package have some
+default settings, so you can probably edit your document’s title,
+author, and date information and leave the rest of the settings alone.
+
+The rest of the document is written in R Markdown. Study the boilerplate
+text that each template contains; it will give you pointers about how to
+craft your own document in R Markdown. Delete the boilerplate text and
+add your own.
 
 ### An Output Format
 
-This is an R function that defines the file extension (e.g., docx, html)
-and the look and feel of the final document. It should be referenced in
-the YAML header of the Rmd document. Each format has default settings,
-some of which can be customized at the document level.
+Once the content has been developed, one or more output formats can be
+applied. In this context, an “output format” is an R function that
+defines the file type (e.g., docx or pptx) and the look and feel (e.g.,
+colors, fonts) of your final document.
 
-One Rmd file can be knit to multiple output formats simultaneously. To
-allow for this, include all outputs under `output:` in the YAML header.
+Note that multiple different formats can be applied to the same
+template. (This is one of the benefits of using R Markdown!) For
+example, you might have an .Rmd report that can be knit as an html draft
+during content development. The final version could be knit to a pdf
+with custom headers, fonts, and colors. Each format has default
+settings, some of which can be customized at the document level.
 
-Document types defined in this package:
+You will rarely, if ever, execute the function directly. Instead,
+include the format namein your draft’s YAML header. To use default
+settings, just include the name:
+
+    output: word_document
+
+To declare custom settings (“options”), include those in the header too,
+indented by two spaces. For example, to include a table of contents, you
+might include:
+
+    output:
+      word_document:
+        toc: true
+
+There are several [output
+formats](https://bookdown.org/yihui/rmarkdown/output-formats.html)
+native to the `rmarkdown` package. You can use any of these by including
+them in the YAML header. There are also a few custom output formats in
+this package; they incorporate components like CCTS or UIC branding
+(colors, fonts, logos) and standardized naming conventions. Any
+package-specific formats need to have the package name prepended:
+
+    output: 
+      bscContentHelpers:word_document:
+        toc: false
+        theme: teal
+
+Output formats defined in this package:
 
 -   `html_draft`. This can be used while developing content to avoid
-    focusing too much on the final aesthetic details. Customizations:
+    focusing too much on the final aesthetic details. Customization
+    options:
     -   `toc`. Include a table of contents at the start of the document?
     -   `theme`. Name of the CSS style to use. Defaults to a plain,
         clean style.
@@ -205,9 +224,8 @@ Document types defined in this package:
     -   `theme`
     -   `toc`
 
-Note that you can also use output formats defined outside this package
-if you prefer. `rmarkdown` has many nice formats built in, and there are
-dozens of other packages out there.
+TODO: full explanation of available output formats settings and
+customizable options
 
 TODO:
 
@@ -217,15 +235,23 @@ TODO:
 
 ### A Knit Function
 
-This controls the behavior of the knit button; in other words, it
-determines how the Rmd draft gets turned into the pdf (or html or docx
-or pptx) document.
+A knit function is an R function that controls the behavior of the knit
+button; in other words, it determines what steps get taken, and in what
+order, to turn the Rmd draft into the pdf (or html or docx or pptx)
+document. Like with an output format, you don’t usually execute a knit
+function directly. Instead, you include it in a document’s YAML header:
 
-Currently, all custom in this package templates use the same knit
-function (`bsc_knit()`). It must be explicitly mentioned in the YAML
-metadata of your Rmd file (and is included in all templates). If it’s
-left out, your document will be knit using `rmarkdown`’s default knit
-behavior.
+`knit: function_name`
+
+It gets executed when you knit the document by clicking the `knit`
+button or typing `Ctrl + Shift + k`.
+
+Currently, this package includes one knit function (`bsc_knit`). This
+knit function is declared in all package templates. It allows you to
+knit multiple formats at once with some custom options (see below). If
+you would prefer to use [R Markdown’s default knitting
+behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply
+delete this YAML option.
 
 All arguments passed to the knit function have defaults, but some can be
 updated by explicitly setting parameters in the YAML header. These
@@ -240,17 +266,21 @@ include:
     stating explicitly, use a reference relative to the knit location.
 -   `dated_file: FALSE`. Append the date to the end of the file name?
 -   `file_date: Sys.Date()`. Date to be appended to the end of the file
-    name, if applciable. Defaults to today’s date but can be explicitly
+    name, if applicable. Defaults to today’s date but can be explicitly
     overridden. To avoid errors, pass as a date object.
 
-TODO: knitting for website \[html/md (with subfolder code snippet
-appended) plus pdf\]
+One Rmd file can be knit to multiple output formats simultaneously. To
+allow for this, include all outputs under `output:` in the YAML header.
+
+TODO: More robust explanation of output options TODO: knitting for
+website \[html/md (with subfolder code snippet appended) plus pdf\]
 
 ## Other Helpful Tips
 
 By default, documents refer to an external bibliography, held in
-`references.bib`. Add references in Bibtex format. Reference them as
-\[@source\].
+`references.bib`. Add references in
+[BibTeX](https://www.bibtex.com/g/bibtex-format/) format. Reference them
+as `[@source]`.
 
 ## Enhancing This Package
 
@@ -264,7 +294,7 @@ Packages book](https://r-pkgs.org/Introduction.html). For more about
 GitHub and version control, see the [GitHub
 docs](https://docs.github.com).
 
-### Create a New Template (or Source Document) in This Package
+### Create a New Template in This Package
 
 TODO: expand to a vignette
 
@@ -396,18 +426,8 @@ more detail on document templates.
 
 ### Create a New Output Format
 
-An Rmd template defines the content and structure of a document. Once
-the content has been developed, one or more formats can be applied.
-Formats define the type of file (e.g., .docx or .pptx) and the look and
-feel (e.g., colors, fonts, headers) of the final product.
-
-Note that multiple different formats can be applied to the same
-template. For example, you might have an .Rmd report that can be knit as
-an html draft during content development. The final version could be
-knit to a pdf with custom headers, fonts, and colors.
-
-A Rmd output “format” is actually a piece of R code that defines output
-behavior and specs. Initiate the new format file by calling:
+Remember that an output format is an R function that defines the output
+file type and specs. Initiate the new format file by calling:
 
 ``` r
 # create a new format; this is where you'll define output type and look & feel 
@@ -419,7 +439,7 @@ cases, this function will base R Markdown format with some custom
 options.
 
 ``` r
-uic_pptx <- function() {
+pptx_presentation <- function() {
  
   # call the base powerpoint_presentation format
   rmarkdown::powerpoint_presentation(
@@ -480,32 +500,3 @@ based on this template.
 ### Create a New Knit Function
 
 *TODO*
-
-<!-- ## Google Drive Integration -->
-<!-- *TODO: Think through and expand on this section and process.* -->
-<!-- Templates and documents are stored in a [BSC Content folder on Google Drive](https://drive.google.com/drive/folders/16XepzMyzRAK4pcuET8goearkb0J5GwLP). They can be accessed through RStudio via the [`googledrive` package](https://googledrive.tidyverse.org/).  -->
-<!-- Reading and writing files requires allowing the R package to access your Google Drive account. To ensure you have access, run: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- # if necessary, install the package -->
-<!-- install.packages("googledrive") -->
-<!-- # view files and folders in the BSC Content Google Drive folder -->
-<!-- googledrive::drive_ls(as_id(gd_id), recursive = FALSE) -->
-<!-- ``` -->
-<!-- You should be sent to a login screen. Authorize Tidyverse API to access your Google account. -->
-<!-- Files can be saved to and read from specific Google Drive locations. Every Google Drive folder has a unique id, equivalent to the id used in the URL in a web browser. -->
-<!-- ![Google Drive folder id](man/figures/gd_id.png) -->
-<!-- To look up the id of a subfolder (nested within BSC Content), use `find_gd_id()` -->
-<!-- ```{r} -->
-<!-- find_gd_id("Templates") -->
-<!-- ``` -->
-<!-- Any time an .Rmd template is updated in this package, generate a fresh copy and send it to the `BSC Content/Templates` folder. This will overwrite the existing copy on Google Drive. -->
-<!-- ```{r} -->
-<!-- upload_template_to_drive("article") -->
-<!-- ``` -->
-<!-- TODO -->
-<!-- - [ ] When, where, and how should files should be uploaded to Drive? -->
-<!-- - [ ] Set target (dynamic) locations for outputs -->
-<!-- - [ ] Wite a `knit_template` function that will regenerate Rmd templates in Drive -->
-<!-- - [ ] ~~Workflows and functions to convert from one template to another~~ -->
-<!-- - [ ] connect document titles to file names (and calls to `rmarkdown::draft()`) -->
-<!-- - [x] where to set output doc parameters for use in knit fxn? -->
