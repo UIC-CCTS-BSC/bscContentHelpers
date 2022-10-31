@@ -49,7 +49,7 @@ install.packages('tinytex')
 tinytex::install_tinytex()
 ```
 
-### Create a Draft 
+### Create a Document Based on an Existing Template
 
 To use the RStudio `New File` add-in to create a document draft, navigate to `File > New File > R Markdown... > From Template`. Select one of the templates from the `bscContentHelpers` package (for example, Article or Slides). 
 

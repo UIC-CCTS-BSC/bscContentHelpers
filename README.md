@@ -5,7 +5,9 @@
         -   <a href="#install-software-and-r-packages"
             id="toc-install-software-and-r-packages">Install Software and R
             Packages</a>
-        -   <a href="#create-a-draft" id="toc-create-a-draft">Create a Draft</a>
+        -   <a href="#create-a-document-based-on-an-existing-template"
+            id="toc-create-a-document-based-on-an-existing-template">Create a
+            Document Based on an Existing Template</a>
         -   <a href="#edit" id="toc-edit">Edit</a>
         -   <a href="#knit" id="toc-knit">Knit</a>
         -   <a href="#for-more-detail" id="toc-for-more-detail">For More Detail…</a>
@@ -75,7 +77,7 @@ install.packages('tinytex')
 tinytex::install_tinytex()
 ```
 
-### Create a Draft
+### Create a Document Based on an Existing Template
 
 To use the RStudio `New File` add-in to create a document draft,
 navigate to `File > New File > R Markdown... > From Template`. Select
@@ -95,6 +97,7 @@ Currently available templates and documents in this package:
 
 -   article
 -   redcap-terms-of-use
+-   redcap-upload-a-file
 -   slides
 
 ### Edit
