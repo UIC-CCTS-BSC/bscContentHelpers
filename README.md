@@ -298,11 +298,6 @@ docs](https://docs.github.com).
 
 TODO: expand to a vignette
 
-*See the note above about templates (e.g., “article”) and source
-documents (e.g., REDCap Terms of Use). Though these categories of Rmd
-files are conceptually different, they’re created, stored, accessed, and
-edited in the same way.*
-
 #### Step 0 \[Optional but Recommended\]: Sync and Switch Branches
 
 Sync the remote repository (i.e., the current version of the files on

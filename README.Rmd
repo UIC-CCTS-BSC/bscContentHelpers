@@ -207,8 +207,6 @@ The sections below explain how to structure new templates, formats, and more. Th
 
 TODO: expand to a vignette
 
-*See the note above about templates (e.g., "article") and source documents (e.g., REDCap Terms of Use). Though these categories of Rmd files are conceptually different, they're created, stored, accessed, and edited in the same way.*
-
 #### Step 0 [Optional but Recommended]: Sync and Switch Branches
 Sync the remote repository (i.e., the current version of the files on GitHub) with your local copy. Then create and switch to a new development branch.
 
