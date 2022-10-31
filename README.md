@@ -5,9 +5,7 @@
         -   <a href="#install-software-and-r-packages"
             id="toc-install-software-and-r-packages">Install Software and R
             Packages</a>
-        -   <a href="#create-a-document-based-on-an-existing-template"
-            id="toc-create-a-document-based-on-an-existing-template">Create a
-            Document Based on an Existing Template</a>
+        -   <a href="#create-a-draft" id="toc-create-a-draft">Create a Draft</a>
         -   <a href="#edit" id="toc-edit">Edit</a>
         -   <a href="#knit" id="toc-knit">Knit</a>
         -   <a href="#for-more-detail" id="toc-for-more-detail">For More Detail…</a>
@@ -45,6 +43,10 @@ Core.
 
 ## Quick Start
 
+This section walks through the process of creating a draft R Markdown
+document from a template, customizing the document, and “knitting” it to
+an output format.
+
 ### Install Software and R Packages
 
 The primary workflow described here relies on
@@ -77,7 +79,7 @@ install.packages('tinytex')
 tinytex::install_tinytex()
 ```
 
-### Create a Document Based on an Existing Template
+### Create a Draft
 
 To use the RStudio `New File` add-in to create a document draft,
 navigate to `File > New File > R Markdown... > From Template`. Select
@@ -87,10 +89,11 @@ Article or Slides).
 ![Create a new doc from a
 template.](man/figures/new_doc_from_template.png)
 
-You can also create a new by manually calling `rmarkdown::draft()`:
+You can also create a new draft by manually calling `rmarkdown::draft()`
+with the template and package name as arguments:
 
 ``` r
-rmarkdown::draft("my_file_name.Rmd", template = "article", package = "bscContentHelpers")
+rmarkdown::draft("my_file_name", template = "article", package = "bscContentHelpers")
 ```
 
 Currently available templates and documents in this package:
