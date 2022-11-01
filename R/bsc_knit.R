@@ -36,17 +36,14 @@ bsc_knit <- function(input, ...) {
 		)
 	}
 
-	# knit the file with the new file name
-	rmarkdown::render(
-		input,
-
-		# creates output for all formats in Rmd header
-		output_format = "all",
-
-		# file name and directory need to be repeated for each format
-		output_file   = rep(yaml$output_file, length(yaml$output)),
-		output_dir    = rep(yaml$output_dir,  length(yaml$output)),
-
-		envir         = globalenv()
-	)
+	# knit the file to each format with the new file name/location
+	purrr::walk(names(yaml$output), ~{
+		rmarkdown::render(
+			input,
+			output_format = .x,
+			output_file   = yaml$output_file,
+			output_dir    = yaml$output_dir,
+			envir         = globalenv()
+		)
+	})
 }

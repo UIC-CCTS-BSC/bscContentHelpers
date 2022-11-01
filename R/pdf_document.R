@@ -3,7 +3,7 @@
 #' @param toc Table of contents?
 #'
 #' @export
-pdf_document <- function(toc = TRUE) {
+pdf_document <- function(toc = FALSE) {
 
 	# path to LaTex preamble
 	preamble = bscContentHelpers::pkg_resource(
