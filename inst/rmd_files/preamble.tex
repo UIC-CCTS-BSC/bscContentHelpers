@@ -1,0 +1,25 @@
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\usepackage{titling}
+\setlength{\droptitle}{-0.5in}
+\pretitle{
+	\begin{flushleft}
+	\begin{figure}[h]\includegraphics[width=3in]{LOGOPATH}\end{figure}
+	\vspace{10pt}
+	\Huge
+	}
+\posttitle{\end{flushleft}}
+\preauthor{\begin{flushleft}\Large}
+\postauthor{\end{flushleft}}
+\predate{\begin{flushleft}\normalsize}
+\postdate{\end{flushleft}}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{\thetitle}
+\fancyhead[R]{\thepage}
+\fancyfoot[L,C,R]{}

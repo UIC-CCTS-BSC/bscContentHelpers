@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-`bscContentHelpers` provides templates and utilities for creating, editing, rendering, and storing documents for the UIC CCTS Biostatistics Core.
+`bscContentHelpers` provides templates and utilities for creating, editing, and rendering documents for the UIC CCTS Biostatistics Core.
 
 ## Quick Start
 
@@ -94,7 +94,7 @@ You can also edit fields in the YAML header or leave them as is.
 
 Convert the .Rmd draft to a formatted HTML document by clicking RStudio's `Knit` button or using the `Ctrl + Shift + K` keyboard shortcut. The document is ready for previewing or sharing. 
 
-There are many other output file types (.docx, .pptx, .pdf) and formats possible. [See below] for details.
+There are many other output file types (.docx, .pptx, .pdf) and formats possible. [See below](#under-the-hood) for details.
 
 
 ### For More Detail...
@@ -102,41 +102,44 @@ There are many other output file types (.docx, .pptx, .pdf) and formats possible
 The internet is full of great explanations of what R Markdown is, how to use it, and how to extend it. Some references: 
 
 * [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
-* [R Markwod Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+* [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
 * [The Epidemiologist R Handbook](https://epirhandbook.com/en/reports-with-r-markdown.html)
 
 
+## Why (R) Markdown?
+
+TODO
+
 ## Under the Hood
 
-The document development and rendering process relies on three files: [an .Rmd template](#an-r-markdown-template), [an output format](#an-output-format), and [a knit function](#a-knit-function).
+The document development and rendering process relies on three components: [an .Rmd template](#an-r-markdown-template), [an output format](#an-output-format), and [a knit function](#a-knit-function).
 
 ### An R Markdown Template
 
-At its most basic, an .Rmd template is a sample file, written in R Markdown, that may include standard headers, sample code, or boilerplate text. An Rmd template defines the content and structure of a document. 
+At its most basic level, an .Rmd template is a sample file, written in R Markdown, that may include standard headers, sample code, or boilerplate text. An R Markdown template defines the content and structure of a document. 
 
 Templates defined in this package include:
 
-* Article. This could be used for a tipsheet or other short article.
-* Slides. This is set up to create a Powerpoint document.
+* Article. This could be used for a tipsheet, tutorial, or other short article.
+* Slides. This is set up to create a PowerPoint presentation or Beamer slideshow.
 
-Like all R Markdown documents, templates start with a section called a YAML header, bordered by three tick marks (`---`). This section defines the settings of your final document, including metadata (e.g., title, author, date) and output format and behavior (e.g., Word document with a certain set of fonts, saved with a specific file name in a specific location on your computer. Custom templates in this package have some default settings, so you can probably edit your document's title, author, and date information and leave the rest of the settings alone.
+R Markdown documents start with a section called a YAML header, bordered by three tick marks (`---`). This section defines the settings of your final document, including metadata (e.g., title, author, date) and output format and behavior (e.g., Word document with a certain set of fonts, saved with a specific file name in a specific location on your computer). Each template in this package has a default YAML header. Some variables, like `title`, should be edited to match your specific document. Others, like default output settings, can likely be left alone.
 
-The rest of the document is written in R Markdown. Study the boilerplate text that each template contains; it will give you pointers about how to craft your own document in R Markdown. Delete the boilerplate text and add your own.
-
+The rest of the document is written in R Markdown. Study the placeholder text in each template; it will give you pointers about how to structure your own document in R Markdown.
 
 ### An Output Format
 
-Once the content has been developed, one or more output formats can be applied. In this context, an "output format" is an R function that defines the file type (e.g., docx or pptx) and the look and feel (e.g., colors, fonts) of your final document. 
+In the R Markdown workflow, an "output format" is an R function that defines the desired file type (e.g., pdf or pptx) and the look and feel (e.g., colors, fonts) of your final document. 
 
-Note that multiple different formats can be applied to the same template. (This is one of the benefits of using R Markdown!) For example, you might have an .Rmd report that can be knit as an html draft during content development. The final version could be knit to a pdf with custom headers, fonts, and colors. Each format has default settings, some of which can be customized at the document level.
+Note that the same source document can be rendered in multiple output formats. (This is one of the benefits of using R Markdown!) For example, suppose you're working on an article. During the writing and editing phase, you might periodically knit it to an HTML draft so you can preview the content. Once you're done, you can knit it to a pdf with standard headers, fonts, and colors. You might also create version as a markdown or HTML fragment for the website. Each format has default settings, some of which can be customized at the document level.
 
-You will rarely, if ever, execute the function directly. Instead, include the format namein your draft's YAML header. To use default settings, just include the name:
+Although the output format is defined in an R function, you will rarely, if ever, execute the function directly. Instead, specify the format in your .Rmd file's YAML header. To use output format's default settings, just include the name:
 
 ```
 output: word_document
 ```
 
-To declare custom settings ("options"), include those in the header too, indented by two spaces. For example, to include a table of contents, you might include:
+To overwrite default settings, include your options in the header too, under the format name and indented by two spaces. For example, to generate a Word document with a table of contents, you could include the following settings in your YAML header:
 
 ```
 output:
@@ -153,7 +156,7 @@ output:
     theme: teal
 ```
 
- Output formats defined in this package:
+Output formats and customizable options defined in this package:
 
 * `html_draft`. This can be used while developing content to avoid focusing too much on the final aesthetic details. Customization options: 
   * `toc`. Include a table of contents at the start of the document?
@@ -163,6 +166,8 @@ output:
 * `word_document`
   * `theme`
   * `toc`
+* `pdf_document`
+
 
 TODO: full explanation of available output formats settings and customizable options
 
@@ -175,11 +180,11 @@ TODO:
 
 ### A Knit Function
 
-A knit function is an R function that controls the behavior of the knit button; in other words, it determines what steps get taken, and in what order, to turn the Rmd draft into the pdf (or html or docx or pptx) document. Like with an output format, you don't usually execute a knit function directly. Instead, you include it in a document's YAML header:
+A knit function is an R function that controls the behavior of the knit button; in other words, it determines what steps get taken, and in what order, to turn the R Markdown draft into the final (pdf or html or docx or pptx) document. It gets executed when you knit the document by clicking the `knit` button or typing `Ctrl + Shift + k`.
+
+Like with an output format, you don't usually execute a knit function directly. Instead, you include it in a document's YAML header:
 
 `knit: function_name`
-
-It gets executed when you knit the document by clicking the `knit` button or typing `Ctrl + Shift + k`.
 
 Currently, this package includes one knit function (`bsc_knit`). This knit function is declared in all package templates. It allows you to knit multiple formats at once with some custom options (see below). If you would prefer to use [R Markdown's default knitting behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply delete this YAML option.
 
@@ -193,6 +198,7 @@ All arguments passed to the knit function have defaults, but some can be updated
 One Rmd file can be knit to multiple output formats simultaneously. To allow for this, include all outputs under `output:` in the YAML header. 
 
 TODO: More robust explanation of output options
+
 TODO: knitting for website [html/md (with subfolder code snippet appended) plus pdf] 
 
 ## Other Helpful Tips
