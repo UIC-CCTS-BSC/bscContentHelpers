@@ -167,6 +167,7 @@ Output formats and customizable options defined in this package:
   * `theme`
   * `toc`
 * `pdf_document`
+	* `toc`
 
 
 TODO: full explanation of available output formats settings and customizable options
@@ -174,7 +175,6 @@ TODO: full explanation of available output formats settings and customizable opt
 
 TODO: 
 
-* pdf_document
 * html_webpage (or md_webpage) -- for static site
   - [ ] consider whether this needs a separate knit function
 
@@ -188,7 +188,7 @@ Like with an output format, you don't usually execute a knit function directly. 
 
 Currently, this package includes one knit function (`bsc_knit`). This knit function is declared in all package templates. It allows you to knit multiple formats at once with some custom options (see below). If you would prefer to use [R Markdown's default knitting behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply delete this YAML option.
 
-All arguments passed to the knit function have defaults, but some can be updated by explicitly setting parameters in the YAML header. These include:
+All arguments passed to the knit function have defaults, but some can be updated by explicitly setting parameters in the YAML header. If you're using the `bscContentHelpers::bsc_knit` function, some options include:
 
 * `output_file: NULL`. This sets the output document name (minus the file extension). This will be the same for all output formats. If not explicitly set, it will default to the document title, minus spaces and special characters.
 * `output_dir: NULL`. This sets the location where output documents are produced. Defaults to the same directory as the Rmd source. If stating explicitly, use a reference relative to the knit location.

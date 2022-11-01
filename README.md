@@ -235,13 +235,13 @@ Output formats and customizable options defined in this package:
     -   `theme`
     -   `toc`
 -   `pdf_document`
+    -   `toc`
 
 TODO: full explanation of available output formats settings and
 customizable options
 
 TODO:
 
--   pdf_document
 -   html_webpage (or md_webpage) – for static site
     -   [ ] consider whether this needs a separate knit function
 
@@ -266,8 +266,8 @@ behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply
 delete this YAML option.
 
 All arguments passed to the knit function have defaults, but some can be
-updated by explicitly setting parameters in the YAML header. These
-include:
+updated by explicitly setting parameters in the YAML header. If you’re
+using the `bscContentHelpers::bsc_knit` function, some options include:
 
 -   `output_file: NULL`. This sets the output document name (minus the
     file extension). This will be the same for all output formats. If
