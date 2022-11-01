@@ -32,7 +32,7 @@ pdf_document <- function(toc = TRUE) {
 	rmarkdown::pdf_document(
 		toc          = toc,
 		latex_engine = "pdflatex",
-		includes     = includes(
+		includes     = rmarkdown::includes(
 			in_header = new_preamble
 		)
 
