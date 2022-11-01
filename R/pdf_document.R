@@ -34,8 +34,10 @@ pdf_document <- function(toc = FALSE) {
 		latex_engine = "pdflatex",
 		includes     = rmarkdown::includes(
 			in_header = new_preamble
+		),
+		pandoc_args = c(
+			rmarkdown::pandoc_variable_arg("colorlinks")
 		)
-
 	)
 }
 
