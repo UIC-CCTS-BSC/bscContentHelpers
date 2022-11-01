@@ -258,12 +258,17 @@ directly. Instead, you include it in a document’s YAML header:
 
 `knit: function_name`
 
-Currently, this package includes one knit function (`bsc_knit`). This
-knit function is declared in all package templates. It allows you to
-knit multiple formats at once with some custom options (see below). If
-you would prefer to use [R Markdown’s default knitting
+Currently, this package includes two custom knit functions. (If you
+would prefer to use [R Markdown’s default knitting
 behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply
-delete this YAML option.
+delete the `knit` line from the YAML header.)
+
+#### `bscContentHelpers::bsc_knit`
+
+This knit function is the default in most document templates. It allows
+you to knit to one or more formats at once with some custom options (see
+below). (To knit to multiple output formats simultaneously, include all
+outputs under `output:` in the YAML header.)
 
 All arguments passed to the knit function have defaults, but some can be
 updated by explicitly setting parameters in the YAML header. If you’re
@@ -275,19 +280,32 @@ using the `bscContentHelpers::bsc_knit` function, some options include:
     spaces and special characters.
 -   `output_dir: NULL`. This sets the location where output documents
     are produced. Defaults to the same directory as the Rmd source. If
-    stating explicitly, use a reference relative to the knit location.
+    stating explicitly, use a reference relative to the Rmd file’s
+    location.
 -   `dated_file: FALSE`. Append the date to the end of the file name?
 -   `file_date: Sys.Date()`. Date to be appended to the end of the file
     name, if applicable. Defaults to today’s date but can be explicitly
     overridden. To avoid errors, pass as a date object.
 
-One Rmd file can be knit to multiple output formats simultaneously. To
-allow for this, include all outputs under `output:` in the YAML header.
+#### `bscContentHelpers::knit_for_web`
+
+This is a knit function that produces files suitable for the BSC
+website. By default, it creates a new folder, named after the first
+non-null value among the following: `output_dir`, `output_name`,
+`title`, input file name. Into that folder it puts an HTML version of
+the page, suitable for the BSC website. By default, it also creates a
+PDF version of the page, puts it in a `files` subfolder, and links to it
+from the HTML page. If you want to share additional documents via the
+web page (for example, another article or a CSV file), list the
+filepath(s) under `attachments`. To suppress PDF creation, use YAML
+option `include_pdf: FALSE`.
+
+After you knit a document via the `knit_for_web` function, the entire
+output subfolder can be added to the website repository on Github.
 
 TODO: More robust explanation of output options
 
-TODO: knitting for website \[html/md (with subfolder code snippet
-appended) plus pdf\]
+TODO: web page template
 
 ## Other Helpful Tips
 
