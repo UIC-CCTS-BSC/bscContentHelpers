@@ -8,11 +8,9 @@ bsc_knit <- function(input, ...) {
 
 	# set default render arguments
 	yaml = list(
-		output_file   = NULL,
-		output_dir    = "output",
+		output        = "bscContentHelpers::pdf_document",
 		dated_file    = FALSE,
-		file_date     = Sys.Date(),
-		output        = "bscContentHelpers::pdf_document"
+		file_date     = Sys.Date()
 	)
 
 	# get custom metadata from file
@@ -20,6 +18,11 @@ bsc_knit <- function(input, ...) {
 
 	# replace defaults with custom
 	yaml[names(custom)] <- custom
+
+	# if no output_file name was passed, use output
+	if (is.null(yaml$output_dir)) {
+		yaml$output_dir = "output"
+	}
 
 	# if no output_file name was passed, use simplified document title
 	if (is.null(yaml$output_file)) {
@@ -37,8 +40,11 @@ bsc_knit <- function(input, ...) {
 		)
 	}
 
+	output_formats = yaml$output
+	if(is.list(yaml$output)) {output_formats = names(yaml$output)}
+
 	# knit the file to each format with the new file name/location
-	purrr::walk(names(yaml$output), ~{
+	purrr::walk(output_formats, ~{
 		rmarkdown::render(
 			input,
 			output_format = .x,
