@@ -9,9 +9,10 @@ bsc_knit <- function(input, ...) {
 	# set default render arguments
 	yaml = list(
 		output_file   = NULL,
-		output_dir    = NULL,
+		output_dir    = "output",
 		dated_file    = FALSE,
-		file_date     = Sys.Date()
+		file_date     = Sys.Date(),
+		output        = "bscContentHelpers::pdf_document"
 	)
 
 	# get custom metadata from file
