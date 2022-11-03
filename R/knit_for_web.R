@@ -75,18 +75,22 @@ knit_for_web <- function(input, ...) {
 		outfile
 	)
 
-	# add snippet to end of output file input and save to a temp file
-	writeLines(
-		c(
-			readLines(outfile),
-			"\n",
-			"```{r, results='asis', echo = FALSE}",
-			"cat(c('Attachments',	bscContentHelpers::create_attachment_links()), sep = '\n')",
-			"```",
-			"\n"
-			),
-			outfile
+	# add snippet to end of output file
+	# if there are attachments and the text isn't already in the output file
+	if(!is.null(doc_opts$attachments) &
+		 !grepl("create_attachment_links", readLines(outfile))) {
+		writeLines(
+			c(
+				readLines(outfile),
+				"\n",
+				"```{r, results='asis', echo = FALSE, eval=knitr::is_html_output()}",
+				"cat(c('Attachments',	bscContentHelpers::create_attachment_links()), sep = '\n')",
+				"```",
+				"\n"
+				),
+				outfile
 		)
+		}
 
 	# clean up the metadata of the output file
 	# see https://bookdown.org/yihui/blogdown/from-jekyll.html#from-jekyll
