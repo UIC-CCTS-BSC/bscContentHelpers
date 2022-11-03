@@ -12,7 +12,8 @@ knit_for_web <- function(input, ...) {
 		author      = "CCTS Biostatistics Core",
 		date        = format(Sys.Date(), "%B %d, %Y"),
 		include_pdf = TRUE,
-		image_dir   = "images"
+		image_dir   = "images",
+		clean       = TRUE
 	)
 
 	# get doc_opts metadata from file and overwrite defaults
@@ -20,28 +21,50 @@ knit_for_web <- function(input, ...) {
 	doc_opts[names(input_yaml)] = input_yaml
 
 	# if no output_file name was passed, use simplified document title
-	if (is.null(doc_opts$output_file) | is.na(doc_opts$output_file)) {
+	if (is.null(doc_opts$output_file)) {
 		doc_opts$output_file = gsub("[^a-zA-Z0-9]+", "_", doc_opts$title)
 	}
 
 	# if no output_dir was passed, use simplified document title
 	if (is.null(doc_opts$output_dir)) {
-		doc_opts$output_dir = tolower(doc_opts$output_file)
+		doc_opts$output_dir = file.path("output", tolower(doc_opts$output_file))
+	}
+
+	# delete old generated folder?
+	# if (doc_opts$clean) {unlink(doc_opts$output_dir)}
+
+	# capture existing file structure, excluding output
+	in_files = grep(
+		"output",
+		list.files(recursive = TRUE),
+		invert = TRUE,
+		value  = TRUE
+		)
+
+	# exclude files named in yaml
+	if(!is.null(doc_opts$exclude)) {
+		for (e in basename(doc_opts$exclude)) {
+			in_files = in_files[grep(e, basename(in_files), invert = TRUE)]
 		}
+	}
 
-	# copy entire document directory to new location
-	file.copy(
-		dirname(input),
-		doc_opts$output_dir,
-		recursive = TRUE
-	)
-
+	# recreate file structure in new location,
+	# overwriting existing files
+	purrr::walk2(
+		dirname(in_files),
+		in_files,
+		~{
+			loc = file.path(doc_opts$output_dir, .x)
+			if(!dir.exists(loc)) {dir.create(loc, recursive = TRUE)}
+			file.copy(.y, file.path(loc, basename(.y)), overwrite = TRUE)
+			}
+		)
 
 	# create attachment directory if needed
 	doc_opts$attach_dir = file.path(doc_opts$output_dir, "files")
-	if(!dir.exists(doc_opts$attach_dir)) {dir.create()}
+	if(!dir.exists(doc_opts$attach_dir)) {dir.create(doc_opts$attach_dir)}
 
-	# copy attachments (explicitly named) to attach_dir
+	# # copy attachments (listed in yaml) to attach_dir
 	if (!is.null(doc_opts$attachments)) {
 		purrr::walk(
 			doc_opts$attachments, ~{
@@ -61,11 +84,6 @@ knit_for_web <- function(input, ...) {
 			output_file   = doc_opts$output_file,
 			output_dir    = doc_opts$attach_dir
 		)
-		# add to list of attachments
-		doc_opts$attachments = c(
-			doc_opts$attachments,
-			paste0(doc_opts$output_file, ".pdf")
-		)
 	}
 
 	# rename the target Rmd file
@@ -75,16 +93,21 @@ knit_for_web <- function(input, ...) {
 		outfile
 	)
 
-	# add snippet to end of output file
 	# if there are attachments and the text isn't already in the output file
-	if(!is.null(doc_opts$attachments) &
-		 !grepl("create_attachment_links", readLines(outfile))) {
+	# add snippet to end of output file
+
+	in_text = readLines(outfile)
+
+	if(
+		length(list.files(doc_opts$attach_dir))>0 &
+		length(grep("create_attachment_links", in_text))==0
+		) {
 		writeLines(
 			c(
-				readLines(outfile),
+				in_text,
 				"\n",
 				"```{r, results='asis', echo = FALSE, eval=knitr::is_html_output()}",
-				"cat(c('Attachments',	bscContentHelpers::create_attachment_links()), sep = '\n')",
+				"cat(c('# Attachments',	'\\n', bscContentHelpers::create_attachment_links()), sep = '\\n')",
 				"```",
 				"\n"
 				),
@@ -92,8 +115,8 @@ knit_for_web <- function(input, ...) {
 		)
 		}
 
-	# clean up the metadata of the output file
-	# see https://bookdown.org/yihui/blogdown/from-jekyll.html#from-jekyll
+	# # clean up the metadata of the output file
+	# # see https://bookdown.org/yihui/blogdown/from-jekyll.html#from-jekyll
 	blogdown:::modify_yaml(
 		outfile,
 		.keep_fields = c(
@@ -106,7 +129,7 @@ knit_for_web <- function(input, ...) {
 
 #' Create markdown links to a list of files in a directory
 #'
-#' @param source_dir Where are the files located?
+#' @param source_dir Where are the files located? (Relative to file being knit)
 #' @param target_dir Where should references point? (probably the same as `source_dir`)
 #' @param pattern Regex search string. Defaults to NULL (returns everything).
 #' @param exclude Specific files to exclude from the list. Only basenames are compared.
@@ -124,14 +147,10 @@ create_attachment_links <- function(
 	files = basename(list.files(source_dir, pattern = pattern))
 	if(!is.null(exclude)) {files = setdiff(files, basename(exclude))}
 
-	# return references in a named list
-	c(
-		section_head,
-		"\n",
-		sprintf(
-			"* [%s](%s)",
-			files,
-			file.path(target_dir, files)
+	# return references in a formatted list
+	sprintf(
+		"* [%s](%s)",
+		files,
+		file.path(target_dir, files)
 		)
-	)
 }

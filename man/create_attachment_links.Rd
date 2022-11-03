@@ -12,7 +12,7 @@ create_attachment_links(
 )
 }
 \arguments{
-\item{source_dir}{Where are the files located?}
+\item{source_dir}{Where are the files located? (Relative to file being knit)}
 
 \item{target_dir}{Where should references point? (probably the same as \code{source_dir})}
 
