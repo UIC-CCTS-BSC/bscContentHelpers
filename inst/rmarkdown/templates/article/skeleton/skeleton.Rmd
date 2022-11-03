@@ -7,6 +7,8 @@ output:
   bscContentHelpers::html_draft: default
   # bscContentHelpers::word_document:
     # toc: FALSE
+  # bscContentHelpers::pdf_document:
+    # toc: FALSE
 knit: bscContentHelpers::bsc_knit
 ---
 
@@ -16,16 +18,17 @@ knitr::opts_chunk$set(echo = FALSE, eval = TRUE, out.width = '75%')
 
 # Overview
 
-Update this template with your custom content. Then create  formatted output document by pressing the `Knit` button in or using the `Shift + Ctrl + K` shortcut in R Studio.
+Update this template with your custom content. Then create a formatted output document by pressing the `Knit` button in or using the `Shift + Ctrl + K` shortcut in R Studio. 
 
 # YAML Header Options
 
 ## Output Formats
 
-Review the package documentation for more about configuring the output. In brief, you should choose one or more output format: 
+Review the package documentation for more about configuring the output. In brief, you should choose one or more output formats: 
 
 * `bscContentHelpers::html_draft`
 * `bscContentHelpers::word_document`
+* `bscContentHelpers::pdf_document`
 * `bscContentHelpers::pptx_presentation`
 
 This template is oriented toward html, Word, or PDF output, but you can choose anything you want. Include multiple formats to knit them all at once. Delete or comment out the ones you don't need.
@@ -38,7 +41,7 @@ You can set some additional properties in the header, such as output file name a
 
 # Markdown
 
-This document is written in [markdown](https://www.markdownguide.org/), with some extra functionality through the [rmarkdown](https://bookdown.org/yihui/rmarkdown/) [@rmarkdown] and [bookdown](https://bookdown.org/yihui/bookdown/) [@bookdown] packages.
+This document is written in [R Markdown](https://bookdown.org/yihui/rmarkdown/).
 
 Some common markdown syntax is demonstrated below. More information is available from [RStudio](https://rmarkdown.rstudio.com/authoring_basics.html), among many other places.
 
@@ -48,22 +51,14 @@ Text can easily be made *italic* or **bold** or ~~strikethrough~~ or ~subscript~
 ## Lists
 You can make unordered lists:
 
-* First item
-* Second item
+* An item
+* Another item
 
 You can also make ordered lists:
 
 1. Something
-2. Another thing
+2. A second thing
 2. Note that the numbers don't need to be correct. R Markdown will take care of numbering the list during rendering.
-
-## Equations
-
-Equations can be easily inserted with standard LaTeX syntax. Inline: $y_i = \beta_0 + \beta_1x_i + \varepsilon_i$
-
-Standalone:
-
-$$y_i = \beta_0 + \beta_1x_i + \varepsilon_i$$
 
 ## Code Chunks
 
@@ -78,10 +73,41 @@ Objects in the current environment are accessible via inline code. For example, 
 
 If you want to print the code verbatim without running it, you can do that by adjusting the chunk options:
 
-```{r mean-speed-noeval, eval = FALSE, echo = TRUE}
-mean_speed <- mean(cars$speed)
-mean_speed
+```{r min-speed-noeval, eval = FALSE, echo = TRUE}
+min_speed <- min(cars$speed)
+min_speed
 ```
+
+And if you want to run code without printing it, you can do that too.
+
+```{r max-speed-noecho, eval = TRUE, include = FALSE, echo = FALSE}
+max_speed <- max(cars$speed)
+max_speed
+```
+
+The maximum speed is `r max_speed`.
+
+## Images
+
+Save image files in the `images/` subdirectory. Insert them into the document like this:
+
+![This picture shows a kitten.](images/kitten.jpg)
+
+If you want to number and cross-reference your images or have more control over how they're displayed, insert them as R code chunks instead. Be sure to give each code chunk a unique label and a caption, as in Figure \@ref(fig:two-kittens):
+
+```{r two-kittens, fig.cap = "More kittens.", out.width="33%"}
+knitr::include_graphics("images/two_kittens.jpg")
+```
+
+
+## Equations
+
+Equations can be easily inserted with standard LaTeX syntax. Inline: $y_i = \beta_0 + \beta_1x_i + \varepsilon_i$
+
+Standalone:
+
+$$y_i = \beta_0 + \beta_1x_i + \varepsilon_i$$
+
 
 ## Figures and Tables
 
@@ -102,11 +128,6 @@ Generate a plot and refer to it as Figure \@ref(fig:cars-figure):
 plot(cars)
 ```
 
-You can also include an image from an external file or online location, as in Figure \@ref(fig:external-figure):
-
-```{r external-figure, fig.cap = "An external image.", out.width="25%"}
-knitr::include_graphics("https://ipce.uic.edu/wp-content/uploads/sites/41/2018/10/CAMP.CIRC_.LG_.BLK_.png")
-```
 
 ## Citations
 
@@ -119,4 +140,5 @@ Insert a footnote anywhere.[^my-note]
 [^my-note]: Citations and footnotes will be formatted automatically when you render the document.
 
 # References
+
 

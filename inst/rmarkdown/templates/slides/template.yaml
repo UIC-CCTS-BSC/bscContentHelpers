@@ -1,4 +1,4 @@
 name: Slides
 description: >
    A template for slides.
-create_dir: FALSE
+create_dir: TRUE
