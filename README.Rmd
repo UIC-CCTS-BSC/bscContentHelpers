@@ -127,6 +127,16 @@ R Markdown documents start with a section called a YAML header, bordered by thre
 
 The rest of the document is written in R Markdown. Study the placeholder text in each template; it will give you pointers about how to structure your own document in R Markdown.
 
+[TODO]
+
+* all templates: create as directory
+* all templates: create `images/` subdirectory
+* `webpage` template for web-only content
+	* default YAML
+	* default naming, organization
+	* include attachment block
+	* include `images/`, `files/`
+
 ### An Output Format
 
 In the R Markdown workflow, an "output format" is an R function that defines the desired file type (e.g., pdf or pptx) and the look and feel (e.g., colors, fonts) of your final document. 

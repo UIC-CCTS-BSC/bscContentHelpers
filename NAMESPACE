@@ -2,6 +2,7 @@
 
 export("%>%")
 export(bsc_knit)
+export(create_attachment_links)
 export(create_temp_draft)
 export(find_theme_doc)
 export(html_draft)
