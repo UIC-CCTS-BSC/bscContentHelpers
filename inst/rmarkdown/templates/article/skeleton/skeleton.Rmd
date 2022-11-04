@@ -91,12 +91,14 @@ The maximum speed is `r max_speed`.
 
 Save image files in the `images/` subdirectory. Insert them into the document like this:
 
-![This picture shows a kitten.](images/kitten.jpg)
+```
+![This is an image caption.](images/filename.jpg)
+```
 
-If you want to number and cross-reference your images or have more control over how they're displayed, insert them as R code chunks instead. Be sure to give each code chunk a unique label and a caption, as in Figure \@ref(fig:two-kittens):
+If you want to number and cross-reference your images or have more control over how they're displayed, insert them as R code chunks instead. Be sure to give each code chunk a unique label and a caption, as in Figure \@ref(fig:chunk-name) (set `eval = TRUE`):
 
-```{r two-kittens, fig.cap = "More kittens.", out.width="33%"}
-knitr::include_graphics("images/two_kittens.jpg")
+```{r chunk-name, fig.cap = "This is a caption.", out.width="33%", eval = FALSE, echo = TRUE}
+knitr::include_graphics("images/image_name.png")
 ```
 
 
