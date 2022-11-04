@@ -83,17 +83,9 @@ Access R objects: The mean speed of the `cars` dataset is `r mean_speed`.
 
 Insert an image from the `images/` subdirectory:
 
-![This picture shows a kitten.](images/kitten.jpg)
-
-<!-- *** -->
-
-<!-- TODO: fix references in this slide by incorporating bookdown; see https://bookdown.org/yihui/bookdown/a-single-document.html -->
-
-<!-- Insert a numbered image and cross-reference it, as in Figure \@ref(fig:two-kittens): -->
-
-<!-- ```{r two-kittens, fig.cap = "More kittens.", out.width="33%"} -->
-<!-- knitr::include_graphics("images/two_kittens.jpg") -->
-<!-- ``` -->
+```
+![This caption describes the image.](images/file_path.jpg)
+```
 
 
 ## Citations
