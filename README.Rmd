@@ -10,10 +10,10 @@ output:
 knitr::opts_chunk$set(
   collapse   = TRUE,
   comment    = "#>",
-  fig.path   = "man/figures/README-",
+  fig.path   = "inst/readme_images/README-",
   out.width  = "100%",
   eval       = FALSE,
-  fig.path   = "man/figures/"
+  fig.path   = "inst/readme_images/"
 )
 ```
 
@@ -74,9 +74,12 @@ cat(templates, sep = "\n")
 
 ```
 
-To use the RStudio `New File` add-in to create a document draft, navigate to `File > New File > R Markdown... > From Template`. Select one of the templates from the `bscContentHelpers` package (for example, Article or Slides). 
+To create a document draft using the RStudio `New File` add-in, navigate to `File > New File > R Markdown... > From Template`. Select one of the templates from the `bscContentHelpers` package (for example, Article or Slides). 
 
-![Create a new doc from a template.](man/figures/new_doc_from_template.png)
+![Create a new R Markdown document.](inst/readme_images/new_doc_1.png)
+
+
+![Create a new doc from a template.](inst/readme_images/choose_template.png)
 
 You can also create a new draft by manually calling `rmarkdown::draft()` with the template and package name as arguments:
 
@@ -86,18 +89,18 @@ rmarkdown::draft("my_file_name", template = "article", package = "bscContentHelp
 
 ### Edit
 
-Do a little editing of the file you just created, making use of [markdown syntax](https://rmarkdown.rstudio.com/authoring_basics.html) and [R code chunks](https://rmarkdown.rstudio.com/lesson-3.html).
+Study the top section of the document, called the YAML header. Feel free to edit these options or leave them as is. [See below](#under-the-hood) for more information.
 
-You can also edit fields in the YAML header or leave them as is.
+Below the YAML header (after the closing `---` marks) is the document body. Do a little editing of the content, making use of [markdown syntax](https://rmarkdown.rstudio.com/authoring_basics.html) and [R code chunks](https://rmarkdown.rstudio.com/lesson-3.html). The template contains tips for content formatting.
 
 ### Knit
 
-Convert the .Rmd draft to a formatted HTML document by clicking RStudio's `Knit` button or using the `Ctrl + Shift + K` keyboard shortcut. The document is ready for previewing or sharing. 
-
-There are many other output file types (.docx, .pptx, .pdf) and formats possible. [See below](#under-the-hood) for details.
+Each template has a default output format, usually explicitly named in the YAML header block. For example, the `article` template defaults to `bscContentHelpers::html_draft`. Convert the .Rmd draft to this output format by clicking RStudio's `Knit` button or using the `Ctrl + Shift + K` keyboard shortcut. An HTML document will be generated and should open automatically. 
 
 
-### For More Detail...
+HTML drafts are good for previewing content as you develop it, but there are many other output file types (.docx, .pptx, .pdf) and formats possible. Try changing the YAML `output` option to `bscContentHelpers::pdf_document` and knit the document again. To knit to multiple formats simultaneously, list them all in the header.
+
+### For More Information...
 
 The internet is full of great explanations of what R Markdown is, how to use it, and how to extend it. Some references: 
 
@@ -122,6 +125,7 @@ Templates defined in this package include:
 
 * Article. This could be used for a tipsheet, tutorial, or other short article.
 * Slides. This is set up to create a PowerPoint presentation or Beamer slideshow.
+* Webpage. This is similar to the Article format, but the default knitting options are set up to output a "page bundle": a collection of files suitable for adding to the BSC website.
 
 R Markdown documents start with a section called a YAML header, bordered by three tick marks (`---`). This section defines the settings of your final document, including metadata (e.g., title, author, date) and output format and behavior (e.g., Word document with a certain set of fonts, saved with a specific file name in a specific location on your computer). Each template in this package has a default YAML header. Some variables, like `title`, should be edited to match your specific document. Others, like default output settings, can likely be left alone.
 
@@ -129,27 +133,27 @@ The rest of the document is written in R Markdown. Study the placeholder text in
 
 [TODO]
 
-* all templates: create as directory
-* all templates: create `images/` subdirectory
-* `webpage` template for web-only content
+* [x] all templates: create as directory
+* [x] all templates: create `images/` subdirectory
+* [x] `webpage` template for web-only content
 	* default YAML
 	* default naming, organization
-	* include attachment block
+	* ~~include attachment block~~ (handled during knit)
 	* include `images/`, `files/`
 
 ### An Output Format
 
 In the R Markdown workflow, an "output format" is an R function that defines the desired file type (e.g., pdf or pptx) and the look and feel (e.g., colors, fonts) of your final document. 
 
-Note that the same source document can be rendered in multiple output formats. (This is one of the benefits of using R Markdown!) For example, suppose you're working on an article. During the writing and editing phase, you might periodically knit it to an HTML draft so you can preview the content. Once you're done, you can knit it to a pdf with standard headers, fonts, and colors. You might also create version as a markdown or HTML fragment for the website. Each format has default settings, some of which can be customized at the document level.
+Note that the same source document can be rendered in multiple output formats. (This is one of the benefits of using R Markdown!) For example, suppose you're working on an article. During the writing and editing phase, you might periodically knit it to an HTML draft so you can preview the content. Once you're done, you can knit it to a pdf with standard headers, fonts, and colors. You might also create version as a formatted HTML page for the website. Each format has default settings, some of which can be customized at the document level.
 
-Although the output format is defined in an R function, you will rarely, if ever, execute the function directly. Instead, specify the format in your .Rmd file's YAML header. To use output format's default settings, just include the name:
+Although the output format is defined in an R function, you will rarely execute the function directly. Instead, specify the format in your .Rmd file's YAML header. To use an output format's default settings, just include the name:
 
 ```
 output: word_document
 ```
 
-To overwrite default settings, include your options in the header too, under the format name and indented by two spaces. For example, to generate a Word document with a table of contents, you could include the following settings in your YAML header:
+To overwrite default options, specify your options in a list under the format name. Each nested level in the list should be indented by two spaces. For example, to generate a Word document with a table of contents, you could include the following settings in your YAML header:
 
 ```
 output:
@@ -157,7 +161,7 @@ output:
     toc: true
 ```
 
-There are several [output formats](https://bookdown.org/yihui/rmarkdown/output-formats.html) native to the `rmarkdown` package. You can use any of these by including them in the YAML header. There are also a few custom output formats in this package; they incorporate components like CCTS or UIC branding (colors, fonts, logos) and standardized naming conventions. Any package-specific formats need to have the package name prepended:
+There are several [output formats native to the `rmarkdown` package](https://bookdown.org/yihui/rmarkdown/output-formats.html). You can use any of these by including them in the YAML header. There are also a few custom output formats in this package; they incorporate components like CCTS or UIC branding (colors, fonts, logos) and standardized naming conventions. Any package-specific formats need to have the package name prepended:
 
 ```
 output: 
@@ -183,45 +187,53 @@ Output formats and customizable options defined in this package:
 TODO: full explanation of available output formats settings and customizable options
 
 
-TODO: 
-
-* html_webpage (or md_webpage) -- for static site
-  - [ ] consider whether this needs a separate knit function
-
 ### A Knit Function
 
-A knit function is an R function that controls the behavior of the knit button; in other words, it determines what steps get taken, and in what order, to turn the R Markdown draft into the final (pdf or html or docx or pptx) document. It gets executed when you knit the document by clicking the `knit` button or typing `Ctrl + Shift + k`.
+A knit function is an R function that controls what steps get taken, and in what order, to turn the R Markdown draft into the final (pdf or html or docx or pptx) document. It gets executed when you knit the document by clicking the `knit` button or typing `Ctrl + Shift + k`.
 
 Like with an output format, you don't usually execute a knit function directly. Instead, you include it in a document's YAML header:
 
 `knit: function_name`
 
-Currently, this package includes two custom knit functions. (If you would prefer to use [R Markdown's default knitting behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply delete the `knit` line from the YAML header.)
+(If you would prefer to use [R Markdown's default knitting behavior](https://bookdown.org/yihui/rmarkdown/compile.html), simply delete the `knit` line from the YAML header.)
+
+Currently, this package includes two custom knit functions.
 
 #### `bscContentHelpers::bsc_knit`
 
-This knit function is the default in most document templates. It allows you to knit to one or more formats at once with some custom options (see below). (To knit to multiple output formats simultaneously, include all outputs under `output:` in the YAML header.) 
+This knit function is the default in most `bscContentHelpers` document templates. It allows you to knit to one or more formats at once with some custom options. (To knit to multiple output formats simultaneously, include all outputs under `output:` in the YAML header.) 
 
 All arguments passed to the knit function have defaults, but some can be updated by explicitly setting parameters in the YAML header. If you're using the `bscContentHelpers::bsc_knit` function, some options include:
 
 * `output_file: NULL`. This sets the output document name (minus the file extension). This will be the same for all output formats. If not explicitly set, it will default to the document title, minus spaces and special characters.
-* `output_dir: NULL`. This sets the location where output documents are produced. Defaults to the same directory as the Rmd source. If stating explicitly, use a reference relative to the Rmd file's location.
+* `output_dir: NULL`. This sets the location where output documents are produced. It defaults to a subdirectory called `output/` in the same location as the Rmd source. If you are explicitly naming a different output location, use a reference relative to the .Rmd file's location.
 * `dated_file: FALSE`. Append the date to the end of the file name?
 * `file_date: Sys.Date()`. Date to be appended to the end of the file name, if applicable. Defaults to today's date but can be explicitly overridden. To avoid errors, pass as a date object.
 
 #### `bscContentHelpers::knit_for_web`
 
-This is a knit function that produces files suitable for the BSC website. By default, it creates a new folder, named after the first non-null value among the following: `output_dir`, `output_name`, `title`, input file name. Into that folder it puts an HTML version of the page, suitable for the BSC website. By default, it also creates a PDF version of the page, puts it in a `files` subfolder, and links to it from the HTML page. If you want to share additional documents via the web page (for example, another article or a CSV file), list the filepath(s) under `attachments`. To suppress PDF creation, use YAML option `include_pdf: FALSE`.
+This is a knit function that produces a set of files (a "page bundle") suitable for the BSC website. By default, it creates a new subfolder in `output/`, named after the first non-null value among the following: `output_dir`, `output_name`, `title`, input file name. Into that folder it puts: 
+
+* A slightly altered R Markdown version of the document, renamed `_index.Rmd`, that is suitable for adding to the BSC website. 
+* A PDF version of the page (knit to the `bscContentHelpers::pdf_knit` format). This will be placed in the `files/` subfolder of the page bundle. [To suppress PDF creation, use YAML option `include_pdf: FALSE`].
+* All other supporting files and folders in the source location. It will copy over all images in `images/` and all documents in `files/` to corresponding subfolders in the page bundle. Make sure that everything in the source folder should be available on the website before knitting.
+
+On the altered `_index.Rmd` page, links to all documents in `files/` will be inserted. If you want to share additional documents via the web page (for example, another article or a CSV file), include it in your source `files/` subfolder before knitting.
 
 After you knit a document via the `knit_for_web` function, the entire output subfolder can be added to the website repository on Github. 
 
-TODO: More robust explanation of output options
+TODO: 
 
-TODO: web page template
+* [ ] More robust explanation of output options
+* [ ] Explanation of what to do with page bundle
 
 ## Other Helpful Tips
 
 By default, documents refer to an external bibliography, held in `references.bib`. Add references in [BibTeX](https://www.bibtex.com/g/bibtex-format/) format. Reference them as `[@source]`.
+
+TODO: 
+
+* [ ] images 
 
 ## Enhancing This Package
 
@@ -372,9 +384,9 @@ $ pandoc -o custom-reference.docx --print-default-data-file reference.docx
 
 Open the new file (`custom-reference.docx`). Built-in styles are listed in the ribbon. To edit a style, right-click its name and select `Modify...`. Change font or paragraph options or add header images. Later documents based on this reference document will have the updated styles applied.
 
-![.docx styles](man/figures/docx_styles.png)
+![.docx styles](inst/readme_images/docx_styles.png)
 
-![.docx styles](man/figures/modify_docx_styles.png)
+![.docx styles](inst/readme_images/modify_docx_styles.png)
 
 Save the reference document in this package's `inst/rmd_files/` directory with a descriptive name. Check and reinstall the package. The name will become a theme name that can be referenced in the yaml header (e.g., reference `teal.docx` with the yaml option `theme: "teal"`).
 
