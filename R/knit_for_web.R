@@ -120,8 +120,18 @@ knit_for_web <- function(input, ...) {
 	blogdown:::modify_yaml(
 		outfile,
 		.keep_fields = c(
-			'title', 'author', 'date', 'categories', 'tags', 'slug'
-		),
+			'author',
+			'date',
+			'title',
+			'weight',
+			'categories',
+			'tags',
+			'slug',
+			'type',
+			'draft',
+			'publishdate',
+			grep("(?i)geekdoc",names(doc_opts), value = TRUE)
+			),
 		.keep_empty = FALSE
 		)
 }
