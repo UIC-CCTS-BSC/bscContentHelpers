@@ -5,10 +5,7 @@ date:  '`r format(Sys.Date(), "%B %d, %Y")`'
 bibliography: references.bib
 output: 
   bscContentHelpers::html_draft: default
-  # bscContentHelpers::word_document:
-    # toc: FALSE
-  # bscContentHelpers::pdf_document:
-    # toc: FALSE
+  # bscContentHelpers::pdf_document: default
 knit: bscContentHelpers::bsc_knit
 ---
 
