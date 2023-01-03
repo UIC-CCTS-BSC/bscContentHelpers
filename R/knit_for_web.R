@@ -84,7 +84,7 @@ knit_for_web <- function(input, ...) {
 			output_file   = doc_opts$output_file,
 			output_dir    = doc_opts$attach_dir
 		)
-	}
+	} else {}
 
 	# rename the target Rmd file
 	outfile = file.path(doc_opts$output_dir, "_index.Rmd")
