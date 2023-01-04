@@ -6,92 +6,108 @@
 #' @export
 knit_for_web <- function(input, ...) {
 
-	# set default doc_opts for output
-	doc_opts = list(
-		title       = tools::file_path_sans_ext(basename(input)),
-		author      = "CCTS Biostatistics Core",
-		date        = format(Sys.Date(), "%B %d, %Y"),
-		include_pdf = TRUE,
-		image_dir   = "images",
-		clean       = TRUE
+	# set default f_opts for output
+	f_opts = list(
+		title        = tools::file_path_sans_ext(basename(input)),
+		output_dir   = file.path(dirname(input), "output"),
+		output_file  = NA,
+		author       = "CCTS Biostatistics Core",
+		date         = format(Sys.Date(), "%B %d, %Y"),
+		include_pdf  = TRUE,
+		image_dir    = "images",
+		attach_dir   = "files",
+		clean        = TRUE
 	)
 
-	# get doc_opts metadata from file and overwrite defaults
+	# get f_opts metadata from file and overwrite defaults
 	input_yaml = rmarkdown::yaml_front_matter(input)
-	doc_opts[names(input_yaml)] = input_yaml
+	f_opts[names(input_yaml)] = input_yaml
 
-	# if no output_file name was passed, use simplified document title
-	if (is.null(doc_opts$output_file)) {
-		doc_opts$output_file = gsub("[^a-zA-Z0-9]+", "_", doc_opts$title)
-	}
+	# bundle name will be first non-missing of
+	# output_file, title, input file name
+	f_opts$bundle_dir = tools::file_path_sans_ext(basename(
+		dplyr::coalesce(
+			f_opts$output_file,
+			f_opts$title
+			)
+		))
 
-	# if no output_dir was passed, use simplified document title
-	if (is.null(doc_opts$output_dir)) {
-		doc_opts$output_dir = file.path("output", tolower(doc_opts$output_file))
-	}
-
-	# delete old generated folder?
-	# if (doc_opts$clean) {unlink(doc_opts$output_dir)}
-
-	# capture existing file structure, excluding output
-	in_files = grep(
-		"output",
-		list.files(recursive = TRUE),
-		invert = TRUE,
-		value  = TRUE
+	# make (safe) file path from
+	# output_dir/bundle_dir
+	f_opts$bundle_dir = file.path(
+		f_opts$output_dir,
+		tolower(gsub("[^a-zA-Z0-9]+","_", f_opts$bundle_dir))
 		)
 
-	# exclude files named in yaml
-	if(!is.null(doc_opts$exclude)) {
-		for (e in basename(doc_opts$exclude)) {
-			in_files = in_files[grep(e, basename(in_files), invert = TRUE)]
+	# delete old output?
+	if (f_opts$clean) {unlink(f_opts$bundle_dir, recursive = TRUE)}
+
+	# create bundle location and subfolders
+	# mirroring structure of source
+	for (d in file.path(
+		f_opts$bundle_dir,
+		list.dirs(dirname(input), recursive = TRUE, full.names = FALSE)
+		)) {
+		if(!dir.exists(d)) {dir.create(d, recursive = TRUE)}
+	}
+
+	# copy over all files
+	for (f in list.files(
+		dirname(input),
+		recursive    = TRUE,
+		full.names   = FALSE,
+		include.dirs = FALSE
+		)) {
+		file.copy(
+			file.path(dirname(input), f),
+			file.path(f_opts$bundle_dir, f),
+			overwrite = TRUE
+			)
 		}
-	}
 
-	# recreate file structure in new location,
-	# overwriting existing files
-	purrr::walk2(
-		dirname(in_files),
-		in_files,
-		~{
-			loc = file.path(doc_opts$output_dir, .x)
-			if(!dir.exists(loc)) {dir.create(loc, recursive = TRUE)}
-			file.copy(.y, file.path(loc, basename(.y)), overwrite = TRUE)
-			}
+	# ATTACHMENTS
+	# define location
+	f_opts$attach_dir = file.path(
+		f_opts$bundle_dir,
+		basename(f_opts$attach_dir)
 		)
-
-	# create attachment directory if needed
-	doc_opts$attach_dir = file.path(doc_opts$output_dir, "files")
-	if(!dir.exists(doc_opts$attach_dir)) {dir.create(doc_opts$attach_dir)}
-
-	# # copy attachments (listed in yaml) to attach_dir
-	if (!is.null(doc_opts$attachments)) {
-		purrr::walk(
-			doc_opts$attachments, ~{
-				file.copy(
-					.x,
-					file.path(doc_opts$attach_dir, basename(.x))
-				)
-			}
-		)
-	}
 
 	# create a pdf version in a attach_dir
-	if(doc_opts$include_pdf) {
+	if(f_opts$include_pdf) {
+
+		if(!dir.exists(f_opts$attach_dir)) {dir.create(f_opts$attach_dir)}
 		rmarkdown::render(
 			input,
 			output_format = "bscContentHelpers::pdf_document",
-			output_file   = doc_opts$output_file,
-			output_dir    = doc_opts$attach_dir
+			output_file   = f_opts$output_file,
+			output_dir    = f_opts$attach_dir
 		)
-	} else {}
+	}
 
-	# rename the target Rmd file
-	outfile = file.path(doc_opts$output_dir, "_index.Rmd")
+
+
+	# MODIFY RMD DOCUMENT
+		# rename the target Rmd file
+	outfile = file.path(f_opts$bundle_dir, "_index.Rmd")
 	file.rename(
-		file.path(doc_opts$output_dir, basename(input)),
+		file.path(f_opts$bundle_dir, basename(input)),
 		outfile
 	)
+
+	# add references block
+	if(!is.null(f_opts$bibliography)) {
+		writeLines(
+			c(
+				readLines(outfile),
+				"",
+				"# References",
+				"::: {#refs}",
+				":::",
+				""
+				),
+			outfile
+			)
+	}
 
 	# if there are attachments and the text isn't already in the output file
 	# add snippet to end of output file
@@ -99,7 +115,7 @@ knit_for_web <- function(input, ...) {
 	in_text = readLines(outfile)
 
 	if(
-		length(list.files(doc_opts$attach_dir))>0 &
+		length(list.files(f_opts$attach_dir))>0 &
 		length(grep("create_attachment_links", in_text))==0
 		) {
 		writeLines(
@@ -107,13 +123,26 @@ knit_for_web <- function(input, ...) {
 				in_text,
 				"\n",
 				"```{r, results='asis', echo = FALSE, eval=knitr::is_html_output()}",
-				"cat(c('# Attachments',	'\\n', bscContentHelpers::create_attachment_links()), sep = '\\n')",
+				sprintf(
+					"cat(c('# Attachments',	'\\n', bscContentHelpers::create_attachment_links('%s')), sep = '\\n')",
+					basename(f_opts$attach_dir)
+					),
 				"```",
 				"\n"
 				),
 				outfile
 		)
 		}
+
+	# delete empty subdirectories
+	for (d in list.dirs(
+		f_opts$bundle_dir,
+		recursive  = TRUE,
+		full.names = TRUE
+		)) {
+			if(length(list.files(d)) == 0) {unlink(d, recursive = TRUE)}
+		}
+
 
 	# # clean up the metadata of the output file
 	# # see https://bookdown.org/yihui/blogdown/from-jekyll.html#from-jekyll
@@ -130,7 +159,8 @@ knit_for_web <- function(input, ...) {
 			'type',
 			'draft',
 			'publishdate',
-			grep("(?i)geekdoc",names(doc_opts), value = TRUE)
+			'bibliography',
+			grep("(?i)geekdoc",names(f_opts), value = TRUE)
 			),
 		.keep_empty = FALSE
 		)
@@ -157,7 +187,7 @@ create_attachment_links <- function(
 	files = basename(list.files(source_dir, pattern = pattern))
 	if(!is.null(exclude)) {files = setdiff(files, basename(exclude))}
 
-	# return references in a formatted list
+	# return attachments in a formatted list
 	sprintf(
 		"* [%s](%s)",
 		files,
