@@ -16,7 +16,8 @@ knit_for_web <- function(input, ...) {
 		include_pdf  = TRUE,
 		image_dir    = "images",
 		attach_dir   = "files",
-		clean        = TRUE
+		clean        = TRUE,
+		section      = FALSE
 	)
 
 	# get f_opts metadata from file and overwrite defaults
@@ -88,7 +89,13 @@ knit_for_web <- function(input, ...) {
 
 	# MODIFY RMD DOCUMENT
 		# rename the target Rmd file
-	outfile = file.path(f_opts$bundle_dir, "_index.Rmd")
+	if(f_opts$section) {
+		pagename = "_index.Rmd"
+	} else {
+		pagename = "index.Rmd"
+	}
+
+	outfile = file.path(f_opts$bundle_dir, pagename)
 	file.rename(
 		file.path(f_opts$bundle_dir, basename(input)),
 		outfile
