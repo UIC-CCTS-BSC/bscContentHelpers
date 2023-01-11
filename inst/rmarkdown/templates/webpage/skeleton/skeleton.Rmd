@@ -3,12 +3,12 @@ title: "Page Title"
 author: "CCTS Biostatistics Core"
 date:  '`r format(Sys.Date(), "%B %d, %Y")`'
 knit: bscContentHelpers::knit_for_web
-# Optional web-specific parameters:
+# bibliography: refs.bib
+## Optional web-specific parameters:
 section: FALSE
 type: page
 slug: "permalink-to-page"
 # weight: 
-# categories: 
 # tags:
 ---
 
@@ -16,44 +16,50 @@ slug: "permalink-to-page"
 knitr::opts_chunk$set(echo = FALSE, eval = TRUE, out.width = '75%')
 ```
 
-# Overview
+## Overview
 
 Update this template with your custom content. Then create a formatted output document by pressing the `Knit` button in or using the `Shift + Ctrl + K` shortcut in R Studio. 
 
-A new output directory will be created, containing a copy of this .Rmd file (renamed `_index.Rmd`) and subfolders for supporting documents. 
+A new output directory will be created, containing a copy of this .Rmd file (renamed `index.Rmd`) and subfolders for supporting documents. 
 
-# YAML Header Options
+## YAML Header Options
 
-## Knit Function
+### Web-specific options
+
+TODO: expand
+
+slug, weight, type, tags
+
+### Knit Function
 
 The default knit function for this document is `bscContentHelpers::knit_for_web`. When you knit the document, a few things will happen:
 
 * A "page bundle" (an output folder with supporting files) will be created, with a name corresponding to this document's title. All files in the current folder will be included in the page bundle.
-* In the page bundle, this .Rmd source file will be renamed `_index.Rmd`.
-* Unless you set `include_pdf` to `FALSE` in the YAML header, a PDF version of this document will be generated and put in the page bundle's `files/` subdirectory.
-* Any additional attachments named in the YAML header will also be copied to `files/`.
-* A code chunk will be added to the end of the document to insert links to all attachments in `files/`.
+	* In the page bundle, this .Rmd source file will be renamed `index.Rmd`.
+	* Unless you set `include_pdf` to `FALSE` in the YAML header, a PDF version of this document will be generated and put in the page bundle's `files/` subdirectory.
+	* Any additional attachments named in the YAML header will also be copied to `files/`.
+	* A code chunk will be added to the end of the document to insert links to all attachments in `files/`.
 
 The page bundle will be suitable for inclusion in the BSC site. (Note that you'll still need to preview and build the page locally before it can go live on the site. See the site repo and README for more.)
 
-## Other Output Formats
+### Other Output Formats
 
 If you'd rather just output a static document (like a PDF), you're better off using the `Article` template. 
 
-## Other Document Options
+### Other Document Options
 
 You can set some additional properties in the header, such as output file name and location. If you don't customize these, defaults will be used. See the README for more.
 
-# Markdown
+## Markdown
 
 This document is written in [R Markdown](https://bookdown.org/yihui/rmarkdown/).
 
 Some common markdown syntax is demonstrated below. More information is available from [RStudio](https://rmarkdown.rstudio.com/authoring_basics.html), among many other places.
 
-## Text Formatting
+### Text Formatting
 Text can easily be made *italic* or **bold** or ~~strikethrough~~ or ~subscript~ or ^superscript^.
 
-## Lists
+### Lists
 You can make unordered lists:
 
 * An item
@@ -65,7 +71,7 @@ You can also make ordered lists:
 2. A second thing
 2. Note that the numbers don't need to be correct. R Markdown will take care of numbering the list during rendering.
 
-## Code Chunks
+### Code Chunks
 
 Embed R code and results via code chunks. You can decide whether to print the code, the results, and any messages or warnings.
 
@@ -92,7 +98,7 @@ max_speed
 
 The maximum speed is `r max_speed`.
 
-## Images
+### Images
 
 Save image files in the `images/` subdirectory. Insert them into the document like this:
 
@@ -102,7 +108,7 @@ Save image files in the `images/` subdirectory. Insert them into the document li
 
 
 
-## Equations
+### Equations
 
 Equations can be easily inserted with standard LaTeX syntax. Inline: $y_i = \beta_0 + \beta_1x_i + \varepsilon_i$
 
@@ -111,7 +117,7 @@ Standalone:
 $$y_i = \beta_0 + \beta_1x_i + \varepsilon_i$$
 
 
-## Figures and Tables
+### Figures and Tables
 
 Print a formatted table with `knitr::kable()` and refer to it as Table \@ref(tab:cars-table):
 
@@ -130,7 +136,7 @@ Generate a plot and refer to it as Figure \@ref(fig:cars-figure):
 plot(cars)
 ```
 
-## Shortcodes
+### Shortcodes
 
 TODO: expand.
 
@@ -141,17 +147,16 @@ Shortcodes are special types of code chunks specifically for webpages built with
 
 Only evaluate shortcodes if output is html. Suppress for pdf.
 
-
-## Citations
+### Citations
 
 Citations are stored as [BibTeX](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html) entries in [references.bib](references.bib). They can be referenced inline by BibTeX id [@rmarkdown].
 
-## Footnotes
+### Footnotes
 
 Insert a footnote anywhere.[^my-note]
 
 [^my-note]: Citations and footnotes will be formatted automatically when you render the document.
 
-# References
-
+<!-- ## References -->
+<!-- If you include a bibliography file in the YAML frontmatter, a references section will be automatically added to the end of your document. -->
 
