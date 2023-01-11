@@ -26,18 +26,25 @@ knit_for_web <- function(input, ...) {
 
 	# bundle name will be first non-missing of
 	# output_file, title, input file name
-	f_opts$bundle_dir = tools::file_path_sans_ext(basename(
+	f_opts$output_file = tools::file_path_sans_ext(basename(
 		dplyr::coalesce(
 			f_opts$output_file,
 			f_opts$title
 			)
 		))
 
+	# make safe output_file name
+	f_opts$output_file = tolower(gsub(
+		"[^a-zA-Z0-9]+",
+		"_",
+		f_opts$output_file
+		))
+
 	# make (safe) file path from
 	# output_dir/bundle_dir
 	f_opts$bundle_dir = file.path(
 		f_opts$output_dir,
-		tolower(gsub("[^a-zA-Z0-9]+","_", f_opts$bundle_dir))
+		f_opts$output_file
 		)
 
 	# delete old output?
