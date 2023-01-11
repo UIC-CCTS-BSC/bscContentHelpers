@@ -2,18 +2,17 @@
 title: "Page Title"
 author: "CCTS Biostatistics Core"
 date:  '`r format(Sys.Date(), "%B %d, %Y")`'
-knit: bscContentHelpers::knit_for_web
 # bibliography: refs.bib
 ## Optional web-specific parameters:
-section: FALSE
-type: page
-slug: "permalink-to-page"
 # weight: 
 # tags:
+section: FALSE
+slug: "permalink-to-page"
+knit: bscContentHelpers::knit_for_web
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, out.width = '75%')
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, out.width = '100%', fig.pos = "H", out.extra = "", fig.show='hold', fig.align='left')
 ```
 
 ## Overview
