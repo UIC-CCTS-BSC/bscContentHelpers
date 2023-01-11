@@ -101,6 +101,15 @@ knit_for_web <- function(input, ...) {
 		outfile
 	)
 
+	# add comment to top of file
+
+	# <!-- this was  -->
+	# find close of yaml header block
+	#
+	# t = readlines(outfile)
+	# setdiff(grep("---", t), 1)
+
+
 	# add references block
 	if(!is.null(f_opts$bibliography)) {
 		writeLines(
