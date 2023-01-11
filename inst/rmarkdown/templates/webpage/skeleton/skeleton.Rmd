@@ -2,8 +2,14 @@
 title: "Page Title"
 author: "CCTS Biostatistics Core"
 date:  '`r format(Sys.Date(), "%B %d, %Y")`'
-bibliography: references.bib
 knit: bscContentHelpers::knit_for_web
+# Optional web-specific parameters:
+section: FALSE
+type: page
+slug: "permalink-to-page"
+# weight: 
+# categories: 
+# tags:
 ---
 
 ```{r setup, include=FALSE}
