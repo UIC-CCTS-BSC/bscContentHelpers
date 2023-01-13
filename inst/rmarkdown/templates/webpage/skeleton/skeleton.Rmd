@@ -4,16 +4,32 @@ author: "CCTS Biostatistics Core"
 date:  '`r format(Sys.Date(), "%B %d, %Y")`'
 # bibliography: refs.bib
 ## Optional web-specific parameters:
-# weight: 
-# tags:
-section: FALSE
+# weight: 5
+# section: FALSE
 slug: "permalink-to-page"
 knit: bscContentHelpers::knit_for_web
 ---
 
+<!-- IMPORTANT: This document originated outside the `ccts-wiki-geekdocs-theme` GitHub repository. Don't edit this page directly on the website; instead, check the `bscContent` repository to see if there's a source file that needs to be updated. -->
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, out.width = '100%', fig.pos = "H", out.extra = "", fig.show='hold', fig.align='left')
+knitr::opts_chunk$set(
+	echo = FALSE, eval = TRUE, 
+	
+	# output settings for PDFs
+	out.width = '100%', fig.pos = "H", out.extra = "", 
+	fig.show='hold', fig.align='center'
+	)
 ```
+
+```{r, include=FALSE, eval = knitr::is_html_output()}
+# image width for web pages
+knitr::opts_chunk$set(out.width = '50%')
+```
+
+## Note About Headers
+
+When this file is rendered as a webpage, the title will be assigned an `<H1>` html tag. It's a good idea to make the header hierarchy for page content start with level 2 (i.e., start the line with `##`) so section headers don't compete with the page title for importance.
 
 ## Overview
 
@@ -101,11 +117,9 @@ The maximum speed is `r max_speed`.
 
 Save image files in the `images/` subdirectory. Insert them into the document like this:
 
+```{r, fig.cap="This is the image caption", eval = FALSE}
+knitr::include_graphics("path/to/image.png")
 ```
-![This captino describes an image.](images/image_name.jpg)
-```
-
-
 
 ### Equations
 
@@ -144,7 +158,18 @@ Shortcodes are special types of code chunks specifically for webpages built with
 * [More from blogdown](https://bookdown.org/yihui/blogdown/content.html#shortcode)
 * [More from geekdocs](https://geekdocs.de/)
 
+
+```{r,  eval=knitr::is_html_output(), echo = FALSE}
+blogdown::shortcode_open("hint", "warning")
+```
+
 Only evaluate shortcodes if output is html. Suppress for pdf.
+
+
+```{r,  eval=knitr::is_html_output(), echo = FALSE}
+blogdown::shortcode_close("hint")
+```
+
 
 ### Citations
 
