@@ -1,7 +1,7 @@
 ---
 title: "Page Title"
 author: "CCTS Biostatistics Core"
-date:  '`r format(Sys.Date(), "%B %d, %Y")`'
+# date:  Month YYYY
 # bibliography: refs.bib
 ## Optional web-specific parameters:
 # weight: 5
