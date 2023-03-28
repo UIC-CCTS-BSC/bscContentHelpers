@@ -14,11 +14,15 @@ knit: bscContentHelpers::knit_for_web
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = FALSE, eval = TRUE, 
+	echo      = FALSE, 
+	eval      = TRUE, 
 	
 	# output settings for PDFs
-	out.width = '100%', fig.pos = "H", out.extra = "", 
-	fig.show='hold', fig.align='center'
+	out.width = '100%', 
+	fig.pos   = "H", 
+	out.extra = "", 
+	fig.show  = 'hold', 
+	fig.align = 'center'
 	)
 ```
 
@@ -64,6 +68,32 @@ If you'd rather just output a static document (like a PDF), you're better off us
 ### Other Document Options
 
 You can set some additional properties in the header, such as output file name and location. If you don't customize these, defaults will be used. See the README for more.
+
+
+## Shortcodes
+
+Some code should just be rendered if the output is HTML (e.g., a web page). Conditionally execute code chunks by setting `eval=knitr::is_html_output()`.
+
+Shortcodes are special types of code chunks specifically for webpages built with Hugo.
+
+* [More from blogdown](https://bookdown.org/yihui/blogdown/content.html#shortcode)
+* [More from geekdocs](https://geekdocs.de/)
+
+Some useful shortcodes:
+
+```{r,  eval=knitr::is_html_output(), echo = FALSE}
+blogdown::shortcode_open("hint", "warning")
+```
+
+Only evaluate shortcodes if output is html. Suppress for pdf.
+
+
+```{r,  eval=knitr::is_html_output(), echo = FALSE}
+blogdown::shortcode_close("hint")
+```
+
+
+
 
 ## Markdown
 
@@ -149,26 +179,6 @@ Generate a plot and refer to it as Figure \@ref(fig:cars-figure):
 plot(cars)
 ```
 
-### Shortcodes
-
-TODO: expand.
-
-Shortcodes are special types of code chunks specifically for webpages built with Hugo.
-
-* [More from blogdown](https://bookdown.org/yihui/blogdown/content.html#shortcode)
-* [More from geekdocs](https://geekdocs.de/)
-
-
-```{r,  eval=knitr::is_html_output(), echo = FALSE}
-blogdown::shortcode_open("hint", "warning")
-```
-
-Only evaluate shortcodes if output is html. Suppress for pdf.
-
-
-```{r,  eval=knitr::is_html_output(), echo = FALSE}
-blogdown::shortcode_close("hint")
-```
 
 
 ### Citations
