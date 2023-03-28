@@ -147,7 +147,7 @@ knit_for_web <- function(input, ...) {
 				"\n",
 				"```{r, results='asis', echo = FALSE, eval=knitr::is_html_output()}",
 				sprintf(
-					"cat(c('# Attachments',	'\\n', bscContentHelpers::create_attachment_links('%s')), sep = '\\n')",
+					"cat(c('## Attachments',	'\\n', bscContentHelpers::create_attachment_links('%s')), sep = '\\n')",
 					basename(f_opts$attach_dir)
 					),
 				"```",
