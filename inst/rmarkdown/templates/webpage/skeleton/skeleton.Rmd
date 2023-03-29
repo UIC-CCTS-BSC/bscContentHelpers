@@ -11,7 +11,7 @@ knit: bscContentHelpers::knit_for_web
 geekdocToC: 1  # depth of page-specific TOC
 ---
 
-<!-- IMPORTANT: This document originated outside the `ccts-wiki-geekdocs-theme` GitHub repository. Don't edit this page directly on the website; instead, check the `bscContent` repository to see if there's a source file that needs to be updated. -->
+<!-- IMPORTANT: This document originated outside the `ccts-site` GitHub repository. Don't edit this page directly on the website; instead, check the `bscContent` repository to see if there's a source file that needs to be updated. -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
