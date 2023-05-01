@@ -1,0 +1,16 @@
+---
+title: "Resource List Title"
+author: "CCTS Biostatistics Core"
+date:  '`r format(Sys.Date(), "%B %d, %Y")`'
+bibliography: references.bib
+knit: bscContentHelpers::knit_for_web
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- Include references in BibTex format in `references.bib`. Refer to them with @rmarkdown. -->
+
+This annotated bibliography includes publications, tools, and resources that our consultants have found relevant while researching this topic. It is meant as a starting point. While we hope this page serves as a helpful resource for our clients and other researchers, we provide no guarantee of its comprehensiveness or of the accuracy or reliability of the works cited. If you have concerns or suggestions to improve this page, please [contact us]. If you want help implementing this topic into your research, consider [requesting a consultation with a biostatistician]. 
+
