@@ -121,25 +121,20 @@ The document development and rendering process relies on three components: [an .
 
 At its most basic level, an .Rmd template is a sample file, written in R Markdown, that may include standard headers, sample code, or boilerplate text. An R Markdown template defines the content and structure of a document. 
 
-Templates defined in this package include:
+Templates currently defined in this package:
 
-* Article. This could be used for a tipsheet, tutorial, or other short article.
-* Slides. This is set up to create a PowerPoint presentation or Beamer slideshow.
-* Webpage. This is similar to the Article format, but the default knitting options are set up to output a "page bundle": a collection of files suitable for adding to the BSC website.
+```{r, results='asis'}
+cat(
+	paste0(
+		"* ", rmarkdown::available_templates("bscContentHelpers")
+	),
+	sep = "\n"
+)
+```
 
 R Markdown documents start with a section called a YAML header, bordered by three tick marks (`---`). This section defines the settings of your final document, including metadata (e.g., title, author, date) and output format and behavior (e.g., Word document with a certain set of fonts, saved with a specific file name in a specific location on your computer). Each template in this package has a default YAML header. Some variables, like `title`, should be edited to match your specific document. Others, like default output settings, can likely be left alone.
 
 The rest of the document is written in R Markdown. Study the placeholder text in each template; it will give you pointers about how to structure your own document in R Markdown.
-
-[TODO]
-
-* [x] all templates: create as directory
-* [x] all templates: create `images/` subdirectory
-* [x] `webpage` template for web-only content
-	* default YAML
-	* default naming, organization
-	* ~~include attachment block~~ (handled during knit)
-	* include `images/`, `files/`
 
 ### An Output Format
 

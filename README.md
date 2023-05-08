@@ -1,35 +1,35 @@
 
--   <a href="#bsccontenthelpers"
-    id="toc-bsccontenthelpers">bscContentHelpers</a>
-    -   <a href="#quick-start" id="toc-quick-start">Quick Start</a>
-        -   <a href="#install-software-and-r-packages"
-            id="toc-install-software-and-r-packages">Install Software and R
-            Packages</a>
-        -   <a href="#create-a-draft" id="toc-create-a-draft">Create a Draft</a>
-        -   <a href="#edit" id="toc-edit">Edit</a>
-        -   <a href="#knit" id="toc-knit">Knit</a>
-        -   <a href="#for-more-information" id="toc-for-more-information">For More
-            Information…</a>
-    -   <a href="#why-r-markdown" id="toc-why-r-markdown">Why (R) Markdown?</a>
-    -   <a href="#under-the-hood" id="toc-under-the-hood">Under the Hood</a>
-        -   <a href="#an-r-markdown-template" id="toc-an-r-markdown-template">An R
-            Markdown Template</a>
-        -   <a href="#an-output-format" id="toc-an-output-format">An Output
-            Format</a>
-        -   <a href="#a-knit-function" id="toc-a-knit-function">A Knit Function</a>
-    -   <a href="#other-helpful-tips" id="toc-other-helpful-tips">Other Helpful
-        Tips</a>
-    -   <a href="#enhancing-this-package"
-        id="toc-enhancing-this-package">Enhancing This Package</a>
-        -   <a href="#create-a-new-template-in-this-package"
-            id="toc-create-a-new-template-in-this-package">Create a New Template in
-            This Package</a>
-        -   <a href="#create-a-new-output-format"
-            id="toc-create-a-new-output-format">Create a New Output Format</a>
-        -   <a href="#create-a-new-reference-doc"
-            id="toc-create-a-new-reference-doc">Create a New Reference Doc</a>
-        -   <a href="#create-a-new-knit-function"
-            id="toc-create-a-new-knit-function">Create a New Knit Function</a>
+- <a href="#bsccontenthelpers"
+  id="toc-bsccontenthelpers">bscContentHelpers</a>
+  - <a href="#quick-start" id="toc-quick-start">Quick Start</a>
+    - <a href="#install-software-and-r-packages"
+      id="toc-install-software-and-r-packages">Install Software and R
+      Packages</a>
+    - <a href="#create-a-draft" id="toc-create-a-draft">Create a Draft</a>
+    - <a href="#edit" id="toc-edit">Edit</a>
+    - <a href="#knit" id="toc-knit">Knit</a>
+    - <a href="#for-more-information" id="toc-for-more-information">For More
+      Information…</a>
+  - <a href="#why-r-markdown" id="toc-why-r-markdown">Why (R) Markdown?</a>
+  - <a href="#under-the-hood" id="toc-under-the-hood">Under the Hood</a>
+    - <a href="#an-r-markdown-template" id="toc-an-r-markdown-template">An R
+      Markdown Template</a>
+    - <a href="#an-output-format" id="toc-an-output-format">An Output
+      Format</a>
+    - <a href="#a-knit-function" id="toc-a-knit-function">A Knit Function</a>
+  - <a href="#other-helpful-tips" id="toc-other-helpful-tips">Other Helpful
+    Tips</a>
+  - <a href="#enhancing-this-package"
+    id="toc-enhancing-this-package">Enhancing This Package</a>
+    - <a href="#create-a-new-template-in-this-package"
+      id="toc-create-a-new-template-in-this-package">Create a New Template in
+      This Package</a>
+    - <a href="#create-a-new-output-format"
+      id="toc-create-a-new-output-format">Create a New Output Format</a>
+    - <a href="#create-a-new-reference-doc"
+      id="toc-create-a-new-reference-doc">Create a New Reference Doc</a>
+    - <a href="#create-a-new-knit-function"
+      id="toc-create-a-new-knit-function">Create a New Knit Function</a>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -93,9 +93,10 @@ These are in a subfolder called `templates` and can be accessed with the
 
 Currently available templates in this package:
 
--   article
--   slides
--   webpage
+- article
+- bibliography
+- slides
+- webpage
 
 To create a document draft using the RStudio `New File` add-in, navigate
 to `File > New File > R Markdown... > From Template`. Select one of the
@@ -146,12 +147,11 @@ to multiple formats simultaneously, list them all in the header.
 The internet is full of great explanations of what R Markdown is, how to
 use it, and how to extend it. Some references:
 
--   [R Markdown: The Definitive
-    Guide](https://bookdown.org/yihui/rmarkdown/)
--   [R Markdown
-    Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
--   [The Epidemiologist R
-    Handbook](https://epirhandbook.com/en/reports-with-r-markdown.html)
+- [R Markdown: The Definitive
+  Guide](https://bookdown.org/yihui/rmarkdown/)
+- [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+- [The Epidemiologist R
+  Handbook](https://epirhandbook.com/en/reports-with-r-markdown.html)
 
 ## Why (R) Markdown?
 
@@ -170,15 +170,16 @@ Markdown, that may include standard headers, sample code, or boilerplate
 text. An R Markdown template defines the content and structure of a
 document.
 
-Templates defined in this package include:
+Templates currently defined in this package:
 
--   Article. This could be used for a tipsheet, tutorial, or other short
-    article.
--   Slides. This is set up to create a PowerPoint presentation or Beamer
-    slideshow.
--   Webpage. This is similar to the Article format, but the default
-    knitting options are set up to output a “page bundle”: a collection
-    of files suitable for adding to the BSC website.
+``` r
+cat(
+    paste0(
+        "* ", rmarkdown::available_templates("bscContentHelpers")
+    ),
+    sep = "\n"
+)
+```
 
 R Markdown documents start with a section called a YAML header, bordered
 by three tick marks (`---`). This section defines the settings of your
@@ -193,16 +194,6 @@ alone.
 The rest of the document is written in R Markdown. Study the placeholder
 text in each template; it will give you pointers about how to structure
 your own document in R Markdown.
-
-\[TODO\]
-
--   [x] all templates: create as directory
--   [x] all templates: create `images/` subdirectory
--   [x] `webpage` template for web-only content
-    -   default YAML
-    -   default naming, organization
-    -   ~~include attachment block~~ (handled during knit)
-    -   include `images/`, `files/`
 
 ### An Output Format
 
@@ -250,19 +241,19 @@ have the package name prepended:
 
 Output formats and customizable options defined in this package:
 
--   `html_draft`. This can be used while developing content to avoid
-    focusing too much on the final aesthetic details. Customization
-    options:
-    -   `toc`. Include a table of contents at the start of the document?
-    -   `theme`. Name of the CSS style to use. Defaults to a plain,
-        clean style.
--   `pptx_presentation`
-    -   `theme`
--   `word_document`
-    -   `theme`
-    -   `toc`
--   `pdf_document`
-    -   `toc`
+- `html_draft`. This can be used while developing content to avoid
+  focusing too much on the final aesthetic details. Customization
+  options:
+  - `toc`. Include a table of contents at the start of the document?
+  - `theme`. Name of the CSS style to use. Defaults to a plain, clean
+    style.
+- `pptx_presentation`
+  - `theme`
+- `word_document`
+  - `theme`
+  - `toc`
+- `pdf_document`
+  - `toc`
 
 TODO: full explanation of available output formats settings and
 customizable options
@@ -296,19 +287,18 @@ All arguments passed to the knit function have defaults, but some can be
 updated by explicitly setting parameters in the YAML header. If you’re
 using the `bscContentHelpers::bsc_knit` function, some options include:
 
--   `output_file: NULL`. This sets the output document name (minus the
-    file extension). This will be the same for all output formats. If
-    not explicitly set, it will default to the document title, minus
-    spaces and special characters.
--   `output_dir: NULL`. This sets the location where output documents
-    are produced. It defaults to a subdirectory called `output/` in the
-    same location as the Rmd source. If you are explicitly naming a
-    different output location, use a reference relative to the .Rmd
-    file’s location.
--   `dated_file: FALSE`. Append the date to the end of the file name?
--   `file_date: Sys.Date()`. Date to be appended to the end of the file
-    name, if applicable. Defaults to today’s date but can be explicitly
-    overridden. To avoid errors, pass as a date object.
+- `output_file: NULL`. This sets the output document name (minus the
+  file extension). This will be the same for all output formats. If not
+  explicitly set, it will default to the document title, minus spaces
+  and special characters.
+- `output_dir: NULL`. This sets the location where output documents are
+  produced. It defaults to a subdirectory called `output/` in the same
+  location as the Rmd source. If you are explicitly naming a different
+  output location, use a reference relative to the .Rmd file’s location.
+- `dated_file: FALSE`. Append the date to the end of the file name?
+- `file_date: Sys.Date()`. Date to be appended to the end of the file
+  name, if applicable. Defaults to today’s date but can be explicitly
+  overridden. To avoid errors, pass as a date object.
 
 #### `bscContentHelpers::knit_for_web`
 
@@ -318,17 +308,17 @@ suitable for the BSC website. By default, it creates a new subfolder in
 `output_dir`, `output_name`, `title`, input file name. Into that folder
 it puts:
 
--   A slightly altered R Markdown version of the document, renamed
-    `_index.Rmd`, that is suitable for adding to the BSC website.
--   A PDF version of the page (knit to the `bscContentHelpers::pdf_knit`
-    format). This will be placed in the `files/` subfolder of the page
-    bundle. \[To suppress PDF creation, use YAML option
-    `include_pdf: FALSE`\].
--   All other supporting files and folders in the source location. It
-    will copy over all images in `images/` and all documents in `files/`
-    to corresponding subfolders in the page bundle. Make sure that
-    everything in the source folder should be available on the website
-    before knitting.
+- A slightly altered R Markdown version of the document, renamed
+  `_index.Rmd`, that is suitable for adding to the BSC website.
+- A PDF version of the page (knit to the `bscContentHelpers::pdf_knit`
+  format). This will be placed in the `files/` subfolder of the page
+  bundle. \[To suppress PDF creation, use YAML option
+  `include_pdf: FALSE`\].
+- All other supporting files and folders in the source location. It will
+  copy over all images in `images/` and all documents in `files/` to
+  corresponding subfolders in the page bundle. Make sure that everything
+  in the source folder should be available on the website before
+  knitting.
 
 On the altered `_index.Rmd` page, links to all documents in `files/`
 will be inserted. If you want to share additional documents via the web
@@ -340,8 +330,8 @@ output subfolder can be added to the website repository on Github.
 
 TODO:
 
--   [ ] More robust explanation of output options
--   [ ] Explanation of what to do with page bundle
+- [ ] More robust explanation of output options
+- [ ] Explanation of what to do with page bundle
 
 ## Other Helpful Tips
 
@@ -352,7 +342,7 @@ as `[@source]`.
 
 TODO:
 
--   [ ] images
+- [ ] images
 
 ## Enhancing This Package
 
@@ -487,9 +477,9 @@ See the excellent [R Markdown
 book](https://bookdown.org/yihui/rmarkdown/document-templates.html) for
 more detail on document templates.
 
--   TODO: more about updating the package and templates. Simple guides:
-    -   <https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/>
-    -   <https://cran.r-project.org/web/packages/indiedown/vignettes/walkthrough.html>
+- TODO: more about updating the package and templates. Simple guides:
+  - <https://catbirdanalytics.wordpress.com/2021/08/16/how-to-create-a-custom-r-markdown-template/>
+  - <https://cran.r-project.org/web/packages/indiedown/vignettes/walkthrough.html>
 
 ### Create a New Output Format
 
