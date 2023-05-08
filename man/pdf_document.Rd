@@ -4,7 +4,7 @@
 \alias{pdf_document}
 \title{PDF Document}
 \usage{
-pdf_document(toc = FALSE, toc_depth = 0, ...)
+pdf_document(toc = FALSE, toc_depth = NULL, ...)
 }
 \arguments{
 \item{toc}{Table of contents?}
