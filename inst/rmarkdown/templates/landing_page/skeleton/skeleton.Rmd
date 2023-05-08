@@ -1,0 +1,26 @@
+---
+title: "Page Title"
+# collapse the section in the left menu?
+geekdocCollapseSection: true
+# order in menu:
+weight: 5
+# permalink to page
+slug: "page-slug"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE)
+```
+
+## Subtitle
+
+Use this page to introduce a section on the website. Be sure to save it in the correct subfolder as _index.Rmd.
+
+
+
+## Contents
+
+```{r, eval=knitr::is_html_output()}
+# include a TOC of all pages in this section
+blogdown::shortcode_html("toc-tree")
+```
