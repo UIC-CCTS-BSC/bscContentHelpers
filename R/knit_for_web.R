@@ -17,7 +17,8 @@ knit_for_web <- function(input, ...) {
 		image_dir    = "images",
 		attach_dir   = "files",
 		clean        = TRUE,
-		section      = FALSE
+		section      = FALSE,
+		bib_head     = "## References"
 	)
 
 	# get f_opts metadata from file and overwrite defaults
@@ -64,7 +65,7 @@ knit_for_web <- function(input, ...) {
 		dirname(input),
 		recursive    = TRUE,
 		full.names   = FALSE,
-		include.dirs = FALSE
+		include.dirs = FALSE # no empty folders
 		)) {
 		file.copy(
 			file.path(dirname(input), f),
@@ -95,7 +96,7 @@ knit_for_web <- function(input, ...) {
 
 
 	# MODIFY RMD DOCUMENT
-		# rename the target Rmd file
+	# rename the target Rmd file
 	if(f_opts$section) {
 		pagename = "_index.Rmd"
 	} else {
@@ -123,7 +124,7 @@ knit_for_web <- function(input, ...) {
 			c(
 				readLines(outfile),
 				"",
-				"# References",
+				f_opts$bib_head,
 				"::: {#refs}",
 				":::",
 				""
@@ -183,6 +184,7 @@ knit_for_web <- function(input, ...) {
 			'draft',
 			'publishdate',
 			'bibliography',
+			'nocite',
 			grep("(?i)geekdoc",names(f_opts), value = TRUE)
 			),
 		.keep_empty = FALSE
