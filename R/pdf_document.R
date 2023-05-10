@@ -3,7 +3,12 @@
 #' @param toc Table of contents?
 #'
 #' @export
-pdf_document <- function(toc = FALSE, toc_depth = NULL, ...) {
+pdf_document <- function(
+		toc             = FALSE,
+		toc_depth       = NULL,
+		number_sections = FALSE,
+		...
+		) {
 
 	# path to LaTex preamble
 	preamble = bscContentHelpers::pkg_resource(
@@ -30,11 +35,12 @@ pdf_document <- function(toc = FALSE, toc_depth = NULL, ...) {
 	)
 
 	bookdown::pdf_document2(
-		toc          = toc,
-		toc_depth    = toc_depth,
-		latex_engine = "pdflatex",
-		includes     = rmarkdown::includes(
-			in_header  = new_preamble
+		toc             = toc,
+		toc_depth       = toc_depth,
+		number_sections = number_sections,
+		latex_engine    = "pdflatex",
+		includes        = rmarkdown::includes(
+			in_header      = new_preamble
 		),
 		pandoc_args  = c(
 			rmarkdown::pandoc_variable_arg("colorlinks")
