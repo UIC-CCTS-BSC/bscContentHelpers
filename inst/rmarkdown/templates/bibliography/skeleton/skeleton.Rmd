@@ -24,28 +24,9 @@ While we hope this resource list serves as a helpful starting point for other re
 blogdown::shortcode("toc")
 ```
 
-```{r}
-show_bib <- function(name) {
-	x = RefManageR::ReadBib(
-		glue::glue("files/{name}.bib")
-		)
-	
-	RefManageR::NoCite(x, "*")
-
-	RefManageR::PrintBibliography(
-		x, 
-		.opts = list(
-			bib.style   = "authoryear",
-			first.inits = FALSE,
-			sorting     = "nyt"
-		)
-	)
-}
-```
-
 ## Resources
 
 ```{r, results = 'asis'}
 # include .bib file in files/ and reference it by name
-show_bib("references")
+bscContentHelpers::show_bib("references")
 ```
