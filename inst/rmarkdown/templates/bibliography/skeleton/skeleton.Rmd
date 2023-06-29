@@ -1,16 +1,51 @@
 ---
+# EDIT THESE ------------------------------------
 title: "Topic Name"
+date:  "Month YYYY"
+slug: "static-path"
+# weight: 5     # define order in website hierarchy
+# useful_for: "for planning sample size" # customize intro text
+# DON'T EDIT THESE ------------------------------
 author: "CCTS Biostatistics Core"
-date:  '`r format(Sys.Date(), "%B %d, %Y")`'
-bibliography: references.bib
 knit: bscContentHelpers::knit_for_web
+include_pdf: TRUE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-<!-- Include references in BibTex format in `references.bib`. Refer to them with @rmarkdown. -->
+This page includes publications and tools that our consultants have found useful`r if(!is.null(rmarkdown::metadata$useful_for)) {glue::glue(" {rmarkdown::metadata$useful_for}")}`. `r if(knitr::is_html_output()) {"The resource list can be downloaded in PDF and [BibTeX](https://www.bibtex.org/) format at the [bottom of this page](#attachments)."}` For more information on this topic, including advice about how to apply it in your research, consider [scheduling a consultation with a biostatistician](https://ccts.uic.edu/services/requesting-services/).
 
-This annotated bibliography is meant as a starting point. It includes publications and tools that our consultants have found relevant to the topic. While we hope this page serves as a helpful resource for our clients and other researchers, we provide no guarantee of its comprehensiveness or of the accuracy or reliability of the works cited. If you have concerns or suggestions to improve this page, please [contact us]. If you want help integrating this topic into your research, consider [requesting a consultation with a biostatistician](https://ccts.uic.edu/services/requesting-services/). 
+While we hope this resource list serves as a helpful starting point for other researchers, we provide no guarantee of its comprehensiveness or of the accuracy or reliability of the works cited. If you have concerns or suggestions to improve this page, please [contact us](https://redcap.link/uic_ccts_biostats). 
 
+```{r, eval=knitr::is_html_output()}
+# add a table of contents on the web page
+blogdown::shortcode("toc")
+```
+
+```{r}
+show_bib <- function(name) {
+	x = RefManageR::ReadBib(
+		glue::glue("files/{name}.bib")
+		)
+	
+	RefManageR::NoCite(x, "*")
+
+	RefManageR::PrintBibliography(
+		x, 
+		.opts = list(
+			bib.style   = "authoryear",
+			first.inits = FALSE,
+			sorting     = "nyt"
+		)
+	)
+}
+```
+
+## Resources
+
+```{r, results = 'asis'}
+# include .bib file in files/ and reference it by name
+show_bib("references")
+```
