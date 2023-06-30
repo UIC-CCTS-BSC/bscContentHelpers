@@ -4,6 +4,7 @@ title: "Topic Name"
 date:  "Month YYYY"
 slug: "static-path"
 # weight: 5     # define order in website hierarchy
+# about: "about linear models" # customize intro text
 # useful_for: "for planning sample size" # customize intro text
 # DON'T EDIT THESE ------------------------------
 author: "CCTS Biostatistics Core"
@@ -15,7 +16,7 @@ include_pdf: TRUE
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-This page includes publications and tools that our consultants have found useful`r if(!is.null(rmarkdown::metadata$useful_for)) {glue::glue(" {rmarkdown::metadata$useful_for}")}`. `r if(knitr::is_html_output()) {"The resource list can be downloaded in PDF and [BibTeX](https://www.bibtex.org/) format at the [bottom of this page](#attachments)."}` For more information on this topic, including advice about how to apply it in your research, consider [scheduling a consultation with a biostatistician](https://ccts.uic.edu/services/requesting-services/).
+This page includes publications and tools`r if(!is.null(rmarkdown::metadata$about)) {glue::glue(" {rmarkdown::metadata$about}")}` that our consultants have found useful`r if(!is.null(rmarkdown::metadata$useful_for)) {glue::glue(" {rmarkdown::metadata$useful_for}")}`. `r if(knitr::is_html_output()) {"The resource list can be downloaded in PDF and [BibTeX](https://www.bibtex.org/) format at the [bottom of this page](#attachments)."}` For more information on this topic, including advice about how to apply it in your research, consider [scheduling a consultation with a biostatistician](https://ccts.uic.edu/services/requesting-services/).
 
 While we hope this resource list serves as a helpful starting point for other researchers, we provide no guarantee of its comprehensiveness or of the accuracy or reliability of the works cited. If you have concerns or suggestions to improve this page, please [contact us](https://redcap.link/uic_ccts_biostats). 
 
