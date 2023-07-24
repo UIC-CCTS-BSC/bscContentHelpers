@@ -19,7 +19,6 @@ knitr::opts_chunk$set(
 	eval      = TRUE, 
 	
 	# output settings for PDFs
-	out.width = '100%', 
 	fig.pos   = "H", 
 	out.extra = "", 
 	fig.show  = 'hold', 
@@ -27,16 +26,24 @@ knitr::opts_chunk$set(
 	)
 ```
 
-```{r, include=FALSE, eval = knitr::is_html_output()}
-# image width for web pages [only applies to images inserted with knitr::include_graphics()]
-knitr::opts_chunk$set(out.width = '50%')
+```{r, include=FALSE}
+# image settings for html and pdf
+# [only applies to images inserted with knitr::include_graphics()]
+
+if(knitr::is_html_output()) {
+	knitr::opts_chunk$set(dpi = 72)
+	
+	} else if(knitr::is_latex_output()) {
+		knitr::opts_chunk$set(out.width = "100%")
+		}
 ```
+
+This is some introductory text. It will appear above the table of contents.
 
 ```{r, eval=knitr::is_html_output()}
 # insert a page TOC at the top of the page
 blogdown::shortcode_html("toc")
 ```
-
 
 ## Note About Headers
 
