@@ -4,13 +4,15 @@
 \alias{show_bib}
 \title{Show the contents of a BibTeX file}
 \usage{
-show_bib(name, dir = "files")
+show_bib(name, dir = "files", html = knitr::is_html_output())
 }
 \arguments{
 \item{name}{The basename of the .bib file}
 
 \item{dir}{The location of the .bib file. Absolute or relative to
 the working directory.}
+
+\item{html}{Should the output be made html-safe?}
 }
 \value{
 A formatted list of references. To show in an
