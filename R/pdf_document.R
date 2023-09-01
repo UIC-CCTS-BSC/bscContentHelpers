@@ -1,6 +1,9 @@
 #' PDF Document
 #'
 #' @param toc Table of contents?
+#' @param toc_depth Numeric. Level of headings included in table of contents
+#' @param number_sections Logical. If `TRUE`, sections will be numbered according to heading hierarchy
+#' @param ... Additional arguments passed to bookdown::pdf_document2()
 #'
 #' @export
 pdf_document <- function(
