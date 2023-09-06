@@ -3,3 +3,6 @@
 .Renviron
 .Rprofile
 _temp
+
+
+inst/rmarkdown/templates/**/output/**
