@@ -9,51 +9,58 @@ output:
 knit: bscContentHelpers::bsc_knit
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
 	echo      = FALSE, 
 	eval      = TRUE, 
-	out.width = '100%', 
+	
+	## output settings for PDFs
 	fig.pos   = "H", 
 	out.extra = "", 
-	fig.show  ='hold', 
-	fig.align ='left'
+	fig.show  = 'hold', 
+	fig.align = 'center'
 	)
 ```
 
-# Overview
+```{r, include=FALSE}
+# image settings for html and pdf
+# [only applies to images inserted with knitr::include_graphics()]
+
+if(knitr::is_html_output()) {
+	knitr::opts_chunk$set(dpi = 72)
+	
+	} else if(knitr::is_latex_output()) {
+		knitr::opts_chunk$set(out.width = "100%")
+		}
+```
+
+## Overview
 
 Update this template with your custom content. Then create a formatted output document by pressing the `Knit` button in or using the `Shift + Ctrl + K` shortcut in R Studio. 
 
-# YAML Header Options
+## YAML Header Options
 
-## Output Formats
+### Output Formats
 
-Review the package documentation for more about configuring the output. In brief, you should choose one or more output formats: 
-
-* `bscContentHelpers::html_draft`
-* `bscContentHelpers::word_document`
-* `bscContentHelpers::pdf_document`
-* `bscContentHelpers::pptx_presentation`
-
-This template is oriented toward html, Word, or PDF output, but you can choose anything you want. Include multiple formats to knit them all at once. Delete or comment out the ones you don't need.
+Review the package documentation for more about configuring the output. In brief, you should choose one or more output formats. This template is oriented toward html, Word, or PDF output, but you can choose anything you want. Include multiple formats to knit them all at once. Delete or comment out the ones you don't need.
 
 Some output formats allow additional configurations (table of contents, color scheme or logo, etc). See the README for more.
 
-## Other Document Options
+### Other Document Options
 
 You can set some additional properties in the header, such as output file name and location. If you don't customize these, defaults will be used. See the README for more.
 
-# Markdown
+## Markdown
 
 This document is written in [R Markdown](https://bookdown.org/yihui/rmarkdown/).
 
 Some common markdown syntax is demonstrated below. More information is available from [RStudio](https://rmarkdown.rstudio.com/authoring_basics.html), among many other places.
 
-## Text Formatting
+### Text Formatting
 Text can easily be made *italic* or **bold** or ~~strikethrough~~ or ~subscript~ or ^superscript^.
 
-## Lists
+### Lists
 You can make unordered lists:
 
 * An item
@@ -65,7 +72,7 @@ You can also make ordered lists:
 2. A second thing
 2. Note that the numbers don't need to be correct. R Markdown will take care of numbering the list during rendering.
 
-## Code Chunks
+### Code Chunks
 
 Embed R code and results via code chunks. You can decide whether to print the code, the results, and any messages or warnings.
 
@@ -92,7 +99,7 @@ max_speed
 
 The maximum speed is `r max_speed`.
 
-## Images
+### Images
 
 Save image files in the `images/` subdirectory. Insert them into the document like this:
 
@@ -107,7 +114,7 @@ knitr::include_graphics("images/image_name.png")
 ```
 
 
-## Equations
+### Equations
 
 Equations can be easily inserted with standard LaTeX syntax. Inline: $y_i = \beta_0 + \beta_1x_i + \varepsilon_i$
 
@@ -116,7 +123,7 @@ Standalone:
 $$y_i = \beta_0 + \beta_1x_i + \varepsilon_i$$
 
 
-## Figures and Tables
+### Figures and Tables
 
 Print a formatted table with `knitr::kable()` and refer to it as Table \@ref(tab:cars-table):
 
@@ -136,16 +143,16 @@ plot(cars)
 ```
 
 
-## Citations
+### Citations
 
 Citations are stored as [BibTeX](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html) entries in [references.bib](references.bib). They can be referenced inline by BibTeX id [@rmarkdown].
 
-## Footnotes
+### Footnotes
 
 Insert a footnote anywhere.[^my-note]
 
 [^my-note]: Citations and footnotes will be formatted automatically when you render the document.
 
-# References
+## References
 
 
