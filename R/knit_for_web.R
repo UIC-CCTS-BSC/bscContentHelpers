@@ -219,3 +219,59 @@ create_attachment_links <- function(
 		file.path(target_dir, files)
 		)
 }
+
+#' Copy output from one location to another (intended to pipe locally from bscContent to bsc-site)
+#'
+#' @param bundle_name The name of the page bundle (e.g., "e_consent")
+#' @param bundle_path The path to the page bundle WITHOUT the bundle name (e.g., "~/project/output")
+#' @param dest_path The path to the destination of the page bundle (e.g., "~/site/section")
+#' @param clean Recursively delete everything in "~/site/section/bundle_name" before copying?
+#'
+#' @return NULL
+#' @export
+copy_for_web <- function(
+		bundle_name,
+		bundle_path,
+		dest_path,
+		clean = TRUE
+		) {
+
+
+	if(clean) {
+		del_path    = file.path(dest_path, bundle_name)
+
+		confirm_del = utils::askYesNo(
+			glue::glue("Do you want to delete everything in {del_path}?"),
+			default = FALSE
+			)
+		if(!confirm_del) {return("Action cancelled.")}
+
+		# delete all files and folders in del_path
+		unlink(del_path, recursive = TRUE)
+	}
+
+	# copy all directories from a to b
+	list.dirs(
+		file.path(bundle_path, bundle_name),
+		recursive    = TRUE,
+		full.names   = FALSE
+		) |>
+		purrr::walk(~{
+			y = file.path(dest_path, bundle_name, .x)
+			if(!dir.exists(y)) {dir.create(y)}
+		})
+
+	# copy all files from a to b
+	list.files(
+		file.path(bundle_path, bundle_name),
+		recursive    = TRUE,
+		include.dirs = TRUE,
+		full.names   = FALSE
+	) |>
+	purrr::walk(~{
+		file.copy(
+			file.path(bundle_path, bundle_name, .x),
+			file.path(dest_path, bundle_name, .x)
+		)
+	})
+}
