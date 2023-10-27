@@ -21,4 +21,5 @@ Imports:
     magrittr,
     purrr,
     RefManageR,
-    rmarkdown
+    rmarkdown,
+    yaml

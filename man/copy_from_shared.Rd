@@ -4,16 +4,21 @@
 \alias{copy_from_shared}
 \title{Copy files from a shared location; optionally overwrite YAML}
 \usage{
-copy_from_shared(old_dir, new_dir, new_yaml = NULL, log = "log.md")
+copy_from_shared(
+  old_dir,
+  new_dir,
+  new_yaml = NULL,
+  pre_content = c(default_opts_chunk(), geekdoc_toc())
+)
 }
 \arguments{
 \item{old_dir}{The old location (full path to directory)}
 
 \item{new_dir}{The new location (full path to directory)}
 
-\item{new_yaml}{New YAML for the Rmd file. Will overwrite old YAML.}
+\item{new_yaml}{New YAML for the Rmd file. A named list. Will modify existing YAML}
 
-\item{log}{(If not NULL) Relative path to log file}
+\item{pre_content}{Content to insert afler the YAML header and before the content}
 }
 \description{
 Copy files from a shared location; optionally overwrite YAML
