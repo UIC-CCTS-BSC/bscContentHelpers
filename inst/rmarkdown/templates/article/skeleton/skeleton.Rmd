@@ -7,6 +7,7 @@ output:
   bscContentHelpers::html_draft: default
   # bscContentHelpers::pdf_document: default
 knit: bscContentHelpers::bsc_knit
+draft: TRUE
 ---
 
 

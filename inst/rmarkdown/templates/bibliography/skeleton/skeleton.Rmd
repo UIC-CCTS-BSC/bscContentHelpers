@@ -1,15 +1,16 @@
 ---
-# EDIT THESE ------------------------------------
-title: "Topic Name"
-date:  "Month YYYY"
-slug: "static-path"
-# weight: 5     # define order in website hierarchy
-# about: "about linear models" # customize intro text
-# useful_for: "for planning sample size" # customize intro text
 # DON'T EDIT THESE ------------------------------
 author: "CCTS Biostatistics Core"
 knit: bscContentHelpers::knit_for_web
 include_pdf: TRUE
+# EDIT THESE ------------------------------------
+title: "Topic Name"
+date:  "Month YYYY"
+draft: TRUE
+slug: "static-path"
+# weight: 5     # define order in website hierarchy
+# about: "about linear models" # customize intro text
+# useful_for: "for planning sample size" # customize intro text
 ---
 
 ```{r, include = FALSE}
