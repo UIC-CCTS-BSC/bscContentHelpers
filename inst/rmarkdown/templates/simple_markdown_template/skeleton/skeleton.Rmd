@@ -1,0 +1,154 @@
+---
+title: "Article Title"
+author: "CCTS Biostatistics Core"
+date: "Month YYYY"
+# bibliography: "references.bib"
+draft: TRUE
+---
+
+## Overview
+
+Update this template with your custom content. 
+
+While drafting this document, you may want to preview a formatted version. The easiest way to do that is to open this file in RStudio and click the `Knit` button in the top toolbar. 
+
+## R Markdown
+
+This document is written in [R Markdown](https://bookdown.org/yihui/rmarkdown/).
+
+Some common markdown syntax is demonstrated below. More information is available from [RStudio](https://rmarkdown.rstudio.com/authoring_basics.html), among many other places.
+
+### Text Formatting
+Text can easily be made *italic* or **bold** or ~~strikethrough~~ or ~subscript~ or ^superscript^.
+
+### Lists
+You can make unordered lists:
+
+* An item
+* Another item
+
+You can also make ordered lists:
+
+1. Something
+2. A second thing
+2. Note that the numbers don't need to be correct. R Markdown will take care of numbering the list during rendering.
+
+### Images
+
+Save image files in a subfolder called `images/` in the same location as this file. Insert them into the document like this:
+
+```
+![This is an image caption.](images/filename.jpg)
+```
+
+### Equations
+
+Equations can be easily inserted with standard LaTeX syntax. Inline: $y_i = \beta_0 + \beta_1x_i + \varepsilon_i$
+
+Standalone:
+
+$$y_i = \beta_0 + \beta_1x_i + \varepsilon_i$$
+
+
+
+### Footnotes
+
+Insert a footnote anywhere.[^my-note]
+
+[^my-note]: Citations and footnotes will be formatted automatically when you render the document.
+
+
+
+### Citations
+
+To add citations at the end of this article, you need to do three things:
+
+1. Create a new file called `references.bib` and populate it with your list of sources.
+2. Insert reference IDs into this file where you want citations to appear.
+3. Uncomment the `# bibliography: "references.bib"` line in the header of this file. (In other words, delete the `#` at the beginning of the file.) 
+
+#### Step 1: references.bib
+
+Create a new file called "references.bib" in the same folder as this article. Add your references to that that file in [BibTeX](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html) format. 
+
+Here's an example of BibTeX format:
+```
+@article{Cohen1992,
+  doi       = {10.1037/0033-2909.112.1.155},
+  url       = {https://doi.org/10.1037/0033-2909.112.1.155},
+  year      = {1992},
+  publisher = {American Psychological Association ({APA})},
+  volume    = {112},
+  number    = {1},
+  pages     = {155--159},
+  author    = {Jacob Cohen},
+  title     = {A power primer.},
+  journal   = {Psychological Bulletin}
+}
+```
+
+Many reference managers will allow you to copy or export BibTeX versions of saved references. For example:
+
+* [EndNote](https://libguides.utsa.edu/c.php?g=522165&p=7949194)
+* [Mendeley](https://blog.mendeley.com/2011/10/25/howto-use-mendeley-to-create-citations-using-latex-and-bibtex/)
+
+[www.doi2bib](https://www.doi2bib.org/) is a useful website that will generate a formatted BibTeX entry from a DOI.
+
+#### Step 2. In-Line Citations
+
+Every BibTeX entry in references.bib should start with a unique ID (e.g., `Cohen1992`). To reference a book or article in this article, insert its unique ID with an `@` symbol in front. For example, I could add a reference to the Cohen article by inserting `[@Cohen1992]` into this paragraph. 
+
+#### Step 3. YAML
+
+You need to include the line `bibliography: "references.bib"` in the YAML header of this file so the knit function can find the file. Delete the `#` sign to change the line from a comment into an active argument.
+
+
+
+### Code Chunks
+
+Embed R code and results via code chunks. You can decide whether to print the code, the results, and any messages or warnings.
+
+```{r mean-speed, eval = TRUE, echo = TRUE}
+mean_speed <- mean(cars$speed)
+mean_speed
+```
+
+Objects in the current environment are accessible via inline code. For example, the mean speed of the `cars` dataset is `r mean_speed`.
+
+If you want to print the code verbatim without running it, you can do that by adjusting the chunk options:
+
+```{r min-speed-noeval, eval = FALSE, echo = TRUE}
+min_speed <- min(cars$speed)
+min_speed
+```
+
+And if you want to run code without printing it, you can do that too.
+
+```{r max-speed-noecho, eval = TRUE, include = FALSE, echo = FALSE}
+max_speed <- max(cars$speed)
+max_speed
+```
+
+The maximum speed is `r max_speed`.
+
+### Figures and Tables
+
+Print a formatted table with `knitr::kable()` and refer to it as Table \@ref(tab:cars-table):
+
+```{r cars-table}
+knitr::kable(
+  head(cars),
+  caption = "A table with some car data." #,longtable = TRUE
+  )
+```
+
+Tip: to allow tables to break across PDF pages, pass `kable(..., longtable = TRUE)`.
+
+Generate a plot and refer to it as Figure \@ref(fig:cars-figure):
+
+```{r cars-figure, fig.cap = "A plot of some car data."}
+plot(cars)
+```
+
+
+

@@ -9,6 +9,7 @@ date:  "Month YYYY"
 slug: "permalink-to-page"
 knit: bscContentHelpers::knit_for_web
 geekdocToC: 1  # depth of page-specific TOC
+draft: TRUE
 ---
 
 <!-- IMPORTANT: This document originated outside the `ccts-site` GitHub repository. Don't edit this page directly on the website; instead, check the `bscContent` repository to see if there's a source file that needs to be updated. -->

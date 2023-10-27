@@ -5,6 +5,7 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 bibliography: references.bib
 output: bscContentHelpers::pptx_presentation
 knit: bscContentHelpers::bsc_knit
+draft: TRUE
 ---
 
 ```{r setup, include=FALSE}
