@@ -3,6 +3,7 @@
 export("%>%")
 export(bsc_knit)
 export(copy_for_web)
+export(copy_from_shared)
 export(create_attachment_links)
 export(create_temp_draft)
 export(find_theme_doc)
