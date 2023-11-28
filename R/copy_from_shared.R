@@ -5,7 +5,7 @@
 #' @param new_yaml New YAML for the Rmd file. A named list. Will modify existing YAML
 #' @param pre_content Content to insert afler the YAML header and before the content
 #'
-#' @return
+#' @return NULL
 #' @export
 copy_from_shared <- function(
 		old_dir,
