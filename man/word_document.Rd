@@ -4,12 +4,16 @@
 \alias{word_document}
 \title{Word (docx) document output format, with optional themes}
 \usage{
-word_document(toc = TRUE, theme = "plain")
+word_document(theme = "plain", toc = TRUE, number_sections = FALSE, ...)
 }
 \arguments{
+\item{theme}{Theme to use in styling the output document}
+
 \item{toc}{Include a table of contents (2 levels deep)?}
 
-\item{theme}{Theme to use in styling the output document}
+\item{number_sections}{Number sections in document and TOC?}
+
+\item{...}{Additional arguments passed to bookdown::word_document2}
 }
 \description{
 Word (docx) document output format, with optional themes
