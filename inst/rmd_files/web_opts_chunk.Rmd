@@ -1,0 +1,22 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo      = FALSE, 
+  eval      = TRUE, 
+
+  # output settings for PDFs
+  fig.pos   = "H", 
+  out.extra = "", 
+  fig.show  = "hold",
+  fig.align = "center",
+)
+
+# image settings for html and pdf
+# [only applies to images inserted with knitr::include_graphics()]
+
+if(knitr::is_html_output()) {
+	knitr::opts_chunk$set(dpi = 72)
+	} else if(knitr::is_latex_output()) {
+  knitr::opts_chunk$set(out.width = "100%")
+}
+```

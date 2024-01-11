@@ -82,6 +82,199 @@ c(
 
 
 
+
+
+#' Copy files from a shared location; optionally overwrite YAML
+#'
+#' @param old_dir The old location (full path to directory)
+#' @param new_dir The new location (full path to directory)
+#' @param new_yaml New YAML for the Rmd file. A named list. Will modify existing YAML
+#' @param pre_content Content to insert afler the YAML header and before the content
+#'
+#' @return NULL
+#' @export
+step_one <- function(
+		input,
+		new_yaml     = NULL,
+		before_text  = NULL,
+		after_text   = NULL
+		) {
+
+	# identify source location
+	old_dir = dirname(input)
+
+	# create a temporary directory
+	temp_dir <- tempdir()
+
+	# create subfolders
+	purrr::walk(c("images", "files"), ~{
+		from = file.path(old_dir, .x)
+		to   = file.path(temp_dir, .x)
+
+		if(!dir.exists(from)) {return(NULL)}
+
+		dir.create(to)
+		file.copy(
+			list.files(from, full.names = TRUE),
+			to,
+			recursive = TRUE
+			)
+
+		})
+
+	# read old rmd
+	to_yaml <- update_yaml(input, new_yaml)
+
+
+	list.files(temp_dir, recursive = TRUE)
+}
+
+
+
+
+	if(!dir.exists(new_dir)) {dir.create(new_dir)}
+
+	f = list.files(old_dir) |>
+		purrr::keep(~!grepl("html$", .x)) |>
+		purrr::keep(~!grepl("output", .x))
+
+	f |>
+		purrr::walk(~{
+			file.copy(
+				file.path(old_dir, .x),
+				new_dir,
+				recursive = TRUE,
+				overwrite = TRUE
+			)
+		})
+
+	# identify primary Rmd file
+	rmd_path <- list.files(new_dir, "Rmd", full.names = TRUE) |>
+		dplyr::first()
+
+	# read old content
+	rmd_path |>
+		readLines() |>
+
+		# modify yaml and other pre-content
+		strip_yaml() |>
+		prepend_c(
+			"---",
+			update_yaml(rmd_path, new_yaml),
+			"---",
+			pre_content
+		) |>
+
+		# write with new frontmatter
+		writeLines(con = rmd_path)
+}
+
+#' #' Return the default chunk options for a BSC doc
+#' #'
+#' #' @return A vector of strings
+#' default_opts_chunk <- function() {
+#' 	c(
+#' 		'',
+#' 		'```{r setup, include=FALSE}',
+#' 		'knitr::opts_chunk$set(',
+#' 		'  echo      = FALSE, ',
+#' 		'  eval      = TRUE, ',
+#' 		'',
+#' 		'  # output settings for PDFs',
+#' 		'  fig.pos   = "H", ',
+#' 		'  out.extra = "", ',
+#' 		"  fig.show  = 'hold', ",
+#' 		"  fig.align = 'center'",
+#' 		")",
+#' 		'',
+#' 		'# image settings for html and pdf',
+#' 		'# [only applies to images inserted with knitr::include_graphics()]',
+#' 		'',
+#' 		'if(knitr::is_html_output()) {',
+#' 		'  knitr::opts_chunk$set(dpi = 72)',
+#' 		'} else if(knitr::is_latex_output()) {',
+#' 		'  knitr::opts_chunk$set(out.width = "100%")',
+#' 		'}',
+#' 		'```',
+#' 		''
+#' 	)
+#' }
+
+#' #' Return a chunk that contains a geekdoc TOC
+#' #'
+#' #' @return A vector of strings
+#' geekdoc_toc <- function() {
+#' 	c(
+#' 		'',
+#' 		'```{r, eval=knitr::is_html_output()}',
+#' 		'# insert a page TOC at the top of the page',
+#' 		'blogdown::shortcode_html("toc")',
+#' 		'```',
+#' 		''
+#' 	)
+#' }
+
+#' Update Existing YAML
+#'
+#' @param file A file with a YAML header
+#' @param new_yaml A named list of fields to add or overwrite
+#'
+#' @return A string with new YAML values
+#' @export
+update_yaml <- function(file, new_yaml = NULL, default_yaml = NULL) {
+
+	# values from file
+	file_yaml = rmarkdown::yaml_front_matter(file)
+
+	# combine old and new
+	# let values from file overwrite defaults
+	if(any(!is.null(new_yaml), !is.null(default_yaml))) {
+
+		file_yaml <- purrr::map(
+		unique(names(c(file_yaml, new_yaml, default_yaml))),
+		~{
+			coalesce(
+				new_yaml[[.x]],
+				file_yaml[[.x]]
+				default_yaml[[.x]]
+				)
+			}
+		)
+	}
+
+	yaml::as.yaml(file_yaml)
+}
+
+
+#' Return only the content of a markdown file, sans YAML
+#'
+#' @param x A file path
+#'
+#' @return A vector of strings without yaml header
+#' @export
+
+unyaml_file <- function(file) {
+	x = readlines(file)
+
+	dashes = grep("---", x)
+	if(length(dashes) != 2) {return("YAML header could not be parsed.")}
+
+	x[(dashes[2] + 1):length(x)]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #' Knit for Web
 #'
 #' @param input Input file

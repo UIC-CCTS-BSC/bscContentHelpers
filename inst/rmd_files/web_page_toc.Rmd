@@ -1,0 +1,5 @@
+
+```{r, eval=knitr::is_html_output()}
+# insert a page TOC at the top of the page
+blogdown::shortcode_html("toc")
+```
