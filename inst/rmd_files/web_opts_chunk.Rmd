@@ -1,5 +1,5 @@
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(
   echo      = FALSE, 
   eval      = TRUE, 
@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
   fig.pos   = "H", 
   out.extra = "", 
   fig.show  = "hold",
-  fig.align = "center",
+  fig.align = "center"
 )
 
 # image settings for html and pdf

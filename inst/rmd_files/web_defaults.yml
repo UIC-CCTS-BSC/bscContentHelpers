@@ -1,0 +1,4 @@
+author: "CCTS Biostatistics Core"
+date: "`r format(Sys.Date(), '%B %Y')`"
+include_pdf: TRUE
+section: FALSE
