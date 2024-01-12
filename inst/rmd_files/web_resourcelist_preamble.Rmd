@@ -1,0 +1,3 @@
+This page includes publications and tools that our consultants have found useful. `r if(knitr::is_html_output()) {"The resource list can be downloaded in PDF and [BibTeX](https://www.bibtex.org/) format at the [bottom of this page](#attachments)."}` For more information on this topic, including advice about how to apply it in your research, consider [scheduling a consultation with a biostatistician](https://research-ally.ccts.uic.edu/).
+
+While we hope this resource list serves as a helpful starting point for other researchers, we provide no guarantee of its comprehensiveness or of the accuracy or reliability of the works cited. If you have concerns or suggestions to improve this page, please [contact us](https://redcap.link/uic_ccts_biostats). 
