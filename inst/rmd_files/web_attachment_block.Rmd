@@ -1,0 +1,9 @@
+## Attachments
+
+```{r, results='asis', echo = FALSE, eval=knitr::is_html_output()}
+sprintf(
+		"* [%s](%s)",
+		list.files("files"),
+		file.path("files", list.files("files"))
+		)
+```
