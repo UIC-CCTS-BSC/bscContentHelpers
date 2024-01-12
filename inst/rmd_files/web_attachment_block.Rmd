@@ -1,10 +1,17 @@
 ## Attachments
 
 ```{r, results='asis', echo = FALSE, eval=knitr::is_html_output()}
+
+f = list.files(
+	"files", 
+	recursive    = TRUE, 
+	include.dirs = FALSE
+	)
+
 sprintf(
 		"* [%s](%s)",
-		list.files("files"),
-		file.path("files", list.files("files"))
+		f,
+		file.path("files", f)
 		) |> 
-	cat()
+	cat(sep = "\n")
 ```
