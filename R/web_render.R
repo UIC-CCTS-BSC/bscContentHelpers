@@ -106,17 +106,14 @@ copy_dir <- function(from, to) {
 #' @export
 create_temp_bundle <- function(
 		input,
-		default_yaml  = NULL,
-			# here::here("inst/rmd_files/web_defaults.yml"),
-		pre_content   = NULL,
-			# c(
-			# here::here("inst/rmd_files/web_opts_chunk.Rmd"),
-			# here::here("inst/rmd_files/web_page_toc.Rmd")
-			# ),
-		post_content  = NULL,
-		#c(
-			# here::here("inst/rmd_files/web_reference_block.Rmd")
-			# ),
+		default_yaml  = pkg_resource("rmd_files/web_defaults.yml"),
+		pre_content   = c(
+			pkg_resource("rmd_files/web_opts_chunk.Rmd"),
+			pkg_resource("rmd_files/web_page_toc.Rmd")
+			),
+		post_content  = c(
+			pkg_resource("rmd_files/web_reference_block.Rmd")
+			),
 		temp_dir = tempdir()
 		) {
 
@@ -167,7 +164,7 @@ create_temp_bundle <- function(
 	if(length(list.files(file.path(temp_dir, "files"))>0)) {
 		modify_rmd_contents(
 			temp_rmd,
-			post_content  = here::here("inst/rmd_files/web_attachment_block.Rmd")
+			post_content  = pkg_resource("rmd_files/web_attachment_block.Rmd")
 			) |>
 			writeLines(temp_rmd)
 	}

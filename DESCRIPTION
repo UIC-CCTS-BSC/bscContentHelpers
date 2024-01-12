@@ -16,7 +16,6 @@ Imports:
     bookdown,
     dplyr,
     glue,
-    here,
     knitr,
     magrittr,
     purrr,

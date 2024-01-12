@@ -6,9 +6,10 @@
 \usage{
 create_temp_bundle(
   input,
-  default_yaml = NULL,
-  pre_content = NULL,
-  post_content = NULL,
+  default_yaml = pkg_resource("rmd_files/web_defaults.yml"),
+  pre_content = c(pkg_resource("rmd_files/web_opts_chunk.Rmd"),
+    pkg_resource("rmd_files/web_page_toc.Rmd")),
+  post_content = c(pkg_resource("rmd_files/web_reference_block.Rmd")),
   temp_dir = tempdir()
 )
 }
