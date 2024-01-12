@@ -1,14 +1,6 @@
-# functions:
-# read a fragment or md or Rmd file
-# save as a modified Rmd:
-	# modify the yaml and post-yaml frontmatter to standard text
-	# replace image markdown with knitr::include_graphics
-# knit to pdf
-
-
 #' Return only the content of a markdown file, sans YAML
 #'
-#' @param x A file path
+#' @param file A path to a file with a YAML header
 #'
 #' @return A vector of strings without yaml header
 #' @export
@@ -22,6 +14,13 @@ unyaml_file <- function(file) {
 	x[(dashes[2] + 1):length(x)]
 }
 
+#' Coalesce two lists by element name
+#'
+#' @param x A list. Values will take precedence if names overlap.
+#' @param y A list. Values will be overwritten if names overlap.
+#'
+#' @return A list
+#' @export
 coalesce_lists <- function(x, y) {
 	unique_names = unique(c(names(x), names(y)))
 
@@ -32,6 +31,15 @@ coalesce_lists <- function(x, y) {
 		)
 }
 
+#' Insert YAML values, headers, and footers in an existing Rmd file.
+#'
+#' @param input A path to a .Rmd file.
+#' @param default_yaml A path to a .yml file containing default key-value pairs. Values will be overwritten by matching values in input header.
+#' @param pre_content A path to a file containing text to be inserted after the YAML header and before existing input content.
+#' @param post_content A path to a file containing text to be inserted after existing input content.
+#'
+#' @return a vector of strings
+#' @export
 modify_rmd_contents <- function(
 		input,
 		default_yaml = NULL,
@@ -66,6 +74,13 @@ modify_rmd_contents <- function(
 	)
 }
 
+#' Copy the contents of a file from one location to another
+#'
+#' @param from A directory path
+#' @param to A directory path
+#'
+#' @return NULL
+#' @export
 copy_dir <- function(from, to) {
 	if(!dir.exists(from)) {return(NULL)}
 	if(!dir.exists(to)) {dir.create(to)}
@@ -81,23 +96,27 @@ copy_dir <- function(from, to) {
 
 #' Copy files from a shared location; optionally overwrite YAML
 #'
-#' @param input The source Rmd file (full path)
-#' @param new_dir The new location (full path to directory)
-#' @param default_yaml Default YAML values for the Rmd file. A named list. Will be overwritten by file's YAML
-#' @param pre_content Content to insert after the YAML header and before the content
+#' @param input A path to a .Rmd file.
+#' @param default_yaml A path to a .yml file containing default key-value pairs. Values will be overwritten by matching values in input header.
+#' @param pre_content A path to a file containing text to be inserted after the YAML header and before existing input content.
+#' @param post_content A path to a file containing text to be inserted after existing input content.
+#' @param temp_dir A path where the modified page bundle (directory) will be created
 #'
 #' @return NULL
 #' @export
 create_temp_bundle <- function(
 		input,
-		default_yaml  = here::here("inst/rmd_files/web_defaults.yml"),
-		pre_content   = c(
-			here::here("inst/rmd_files/web_opts_chunk.Rmd"),
-			here::here("inst/rmd_files/web_page_toc.Rmd")
-			),
-		post_content  = c(
-			here::here("inst/rmd_files/web_reference_block.Rmd")
-			),
+		default_yaml  = NULL,
+			# here::here("inst/rmd_files/web_defaults.yml"),
+		pre_content   = NULL,
+			# c(
+			# here::here("inst/rmd_files/web_opts_chunk.Rmd"),
+			# here::here("inst/rmd_files/web_page_toc.Rmd")
+			# ),
+		post_content  = NULL,
+		#c(
+			# here::here("inst/rmd_files/web_reference_block.Rmd")
+			# ),
 		temp_dir = tempdir()
 		) {
 
@@ -157,17 +176,14 @@ create_temp_bundle <- function(
 	temp_dir
 }
 
-# create_temp_bundle(
-# 	input = "C:/Users/rlane7/Documents/Packages/_Temp/test_doc/test_doc.Rmd"
-# ) |>
-# 	list.files(recursive = TRUE)
-#
 
 
-#' Knit for Web
+#' Prepare a Rmd file and supporting files for inclusion in a blogdown project
 #'
-#' @param input Input file
-#' @param ... Additional parameters
+#' @param input A path to the input file
+#' @param target_dir A path to the directory where the page bundle should be located
+#' @param ... Additional arguments passed to create_temp_bundle()
+#' @param clean Devele everything in target_dir before populating?
 #'
 #' @export
 knit_for_web <- function(
@@ -207,11 +223,3 @@ knit_for_web <- function(
 
 		target_dir
 }
-
-
-knit_for_web(
-	input = "C:/Users/rlane7/Documents/Packages/_Temp/test_doc/test_doc.Rmd",
-	target_dir = "C:/Users/rlane7/Documents/Packages/_Temp/webpage"
-)
-
-
